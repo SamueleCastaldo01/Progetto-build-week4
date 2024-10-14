@@ -2,30 +2,29 @@ package samueleCastaldo.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import samueleCastaldo.entities.Utente;
+import samueleCastaldo.entities.EmissioneBiglietti;
+import samueleCastaldo.entities.Pass;
 import samueleCastaldo.exceptions.NotFoundException;
 
-import javax.swing.text.html.parser.Entity;
-
-public class UtenteDao {
+public class EmBigliettiDao {
     private final EntityManager em2;
 
-    public UtenteDao(EntityManager em2) {
+    public EmBigliettiDao(EntityManager em2) {
         this.em2 = em2;
     }
 
-    public void save(Utente utente) {
+    public void save(EmissioneBiglietti emBiglietti) {
         EntityTransaction transiction = em2.getTransaction();
 
         transiction.begin();
-        em2.persist(utente);
+        em2.persist(emBiglietti);
         transiction.commit();
         em2.close();
-        System.out.println("L'utente con id " + utente.getId() + " è stato inserito");
+        System.out.println("Il distribitore con id " + emBiglietti.getId() + " è stato inserito");
     }
 
-    public Utente findById(long id) {
-        Utente found = em2.find(Utente.class, id);
+    public EmissioneBiglietti findById(long id) {
+        EmissioneBiglietti found = em2.find(EmissioneBiglietti.class, id);
         if (found == null) throw new NotFoundException(id);
         return found;
     }

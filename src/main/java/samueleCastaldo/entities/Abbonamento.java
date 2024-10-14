@@ -20,10 +20,11 @@ public class Abbonamento extends Pass {
     public Abbonamento() {
     }
 
-    public Abbonamento(LocalDate dataEmissione, TipoAbbonamento tipoAbbonamento) {
+    public Abbonamento(LocalDate dataEmissione, TipoAbbonamento tipoAbbonamento,Tessera tessera) {
         super(dataEmissione);
-        this.dataScadenza = setDataScadenza(dataEmissione);
+        this.dataScadenza = setDataScadenza();
         this.tipoAbbonamento = tipoAbbonamento;
+        this.tessera = tessera;
     }
 
     public LocalDate getDataScadenza() {
@@ -34,13 +35,13 @@ public class Abbonamento extends Pass {
         return tipoAbbonamento;
     }
 
-    public LocalDate setDataScadenza(LocalDate dataScadenza) {
-        if (tipoAbbonamento.equals(TipoAbbonamento.SETTIMANALE)) {
-            dataScadenza = dataEmissione.plusDays(7);
+    public LocalDate setDataScadenza() {
+        if (tipoAbbonamento == TipoAbbonamento.SETTIMANALE) {
+            this.dataScadenza = dataEmissione.plusDays(7);
         } else {
-            dataScadenza = dataEmissione.plusDays(30);
+            this.dataScadenza = dataEmissione.plusDays(30);
         }
-        return dataScadenza;
+        return this.dataScadenza;
     }
 
     public void setTipoAbbonamento(TipoAbbonamento tipoAbbonamento) {

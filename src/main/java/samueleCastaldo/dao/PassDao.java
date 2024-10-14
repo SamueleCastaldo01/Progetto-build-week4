@@ -3,6 +3,8 @@ package samueleCastaldo.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import samueleCastaldo.entities.Pass;
+import samueleCastaldo.entities.Tessera;
+import samueleCastaldo.exceptions.NotFoundException;
 
 
 public class PassDao {
@@ -20,5 +22,11 @@ public class PassDao {
         transiction.commit();
         em2.close();
         System.out.println("Il pass con id " + pass.getId() + " è stato inserito");
+    }
+
+    public Pass findById(long id) {
+        Pass found = em2.find(Pass.class, id);
+        if (found == null) throw new NotFoundException(id);
+        return found;
     }
 }
