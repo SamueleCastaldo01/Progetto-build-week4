@@ -36,4 +36,12 @@ public abstract class Pass {
     public void setDataEmissione(LocalDate dataEmissione) {
         this.dataEmissione = dataEmissione;
     }
+
+    @Override
+    public String toString() {
+        return "Pass{" +
+                "id=" + id +
+                ", dataEmissione=" + dataEmissione +
+                '}';
+    }
 }

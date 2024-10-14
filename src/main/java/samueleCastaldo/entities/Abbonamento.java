@@ -45,4 +45,6 @@ public class Abbonamento extends Pass {
     public void setTipoAbbonamento(TipoAbbonamento tipoAbbonamento) {
         this.tipoAbbonamento = tipoAbbonamento;
     }
+
+
 }

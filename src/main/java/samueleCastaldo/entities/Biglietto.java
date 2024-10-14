@@ -19,5 +19,11 @@ public class Biglietto extends Pass {
         super(dataEmissione);
     }
 
-
+    @Override
+    public String toString() {
+        return "Biglietto{" +
+                "id=" + id +
+                ", dataEmissione=" + dataEmissione +
+                '}';
+    }
 }
