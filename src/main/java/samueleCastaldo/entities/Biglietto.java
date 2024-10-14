@@ -15,8 +15,8 @@ public class Biglietto extends Pass {
     public Biglietto() {
     }
 
-    public Biglietto(LocalDate dataEmissione) {
-        super(dataEmissione);
+    public Biglietto(LocalDate dataEmissione, EmissioneBiglietti emissioneBiglietti) {
+        super(dataEmissione, emissioneBiglietti);
     }
 
     @Override

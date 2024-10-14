@@ -2,6 +2,8 @@ package samueleCastaldo.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_emissione", discriminatorType = DiscriminatorType.STRING)

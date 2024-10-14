@@ -26,10 +26,10 @@ public class Application {
         EmBigliettiDao emBigliettiDao = new EmBigliettiDao(em);
 
 
-        Utente u1 = new Utente("Giovanni", "Muchaccia");
-//        utenteDao.save(u1);
+        Utente u1 = new Utente("Aldo", "Baglio");
+        //utenteDao.save(u1);
 
-        Utente utFound = utenteDao.findById(1);
+        Utente utFound = utenteDao.findById(102);
 
         Tessera t1 = new Tessera(LocalDate.now(), utFound);
         //tessDao.save(t1);
@@ -38,11 +38,17 @@ public class Application {
         Distributore dis2 = new Distributore(true);
         Rivenditore riv1 = new Rivenditore();
 
+        //emBigliettiDao.save(dis2);
         //emBigliettiDao.save(riv1);
 
-        Biglietto big1 = new Biglietto(LocalDate.now());
-        Tessera tessFound = tessDao.findById(52);
-        Abbonamento abb1 = new Abbonamento(LocalDate.now(),TipoAbbonamento.SETTIMANALE,tessFound);
+        EmissioneBiglietti emBiglFound = emBigliettiDao.findById(202);
+        Tessera tessFound = tessDao.findById(102);
+
+        Biglietto big1 = new Biglietto(LocalDate.now(), emBiglFound);
+        Abbonamento abb1 = new Abbonamento(LocalDate.now(),emBiglFound,tessFound,TipoAbbonamento.SETTIMANALE);
+        passDao.save(abb1);
+
+
         //passDao.save(abb1);
 
     }
