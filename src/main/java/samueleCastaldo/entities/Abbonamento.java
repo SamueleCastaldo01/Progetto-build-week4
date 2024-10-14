@@ -8,10 +8,11 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "abbonamenti")
 public class Abbonamento extends Pass {
-    //    @Column (name = "id_tessera", nullable = false)
-//    private long idTessera;
-    @Column (name = "tipo_abbonamento",nullable = false)
-    @Enumerated (EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "id_tessera", referencedColumnName = "id")
+    private Tessera tessera;
+    @Column(name = "tipo_abbonamento", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TipoAbbonamento tipoAbbonamento;
     @Column(name = "data_scadeza")
     private LocalDate dataScadenza;
