@@ -25,7 +25,7 @@ public abstract class Pass {
         this.dataEmissione = dataEmissione;
     }
 
-    public long getIdBiglietto() {
+    public long getId() {
         return id;
     }
 

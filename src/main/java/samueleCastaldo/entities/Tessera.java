@@ -19,9 +19,9 @@ public class Tessera {
 
     public Tessera(){}
 
-    public Tessera(LocalDate data_emissione, LocalDate data_scadenza, Utente utente) {
+    public Tessera(LocalDate data_emissione, Utente utente) {
         this.data_emissione = data_emissione;
-        this.data_scadenza = data_scadenza;
+        this.data_scadenza = setData_scadenza(data_emissione);
         this.utente = utente;
     }
 
@@ -49,8 +49,9 @@ public class Tessera {
         this.data_emissione = data_emissione;
     }
 
-    public void setData_scadenza(LocalDate data_scadenza) {
-        this.data_scadenza = data_scadenza;
+    public LocalDate setData_scadenza(LocalDate data_scadenza) {
+        data_scadenza = data_emissione.plusYears(1);
+        return data_scadenza;
     }
 
     public void setUtente(Utente utente) {
