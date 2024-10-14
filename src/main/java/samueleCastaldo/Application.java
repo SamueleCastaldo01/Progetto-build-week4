@@ -3,6 +3,7 @@ package samueleCastaldo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import samueleCastaldo.entities.Biglietto;
 
 public class Application {
 
@@ -12,4 +13,5 @@ public class Application {
         EntityManager em = emf.createEntityManager();
         System.out.println("Hello World!");
     }
+    Biglietto b1 = new Biglietto();
 }
