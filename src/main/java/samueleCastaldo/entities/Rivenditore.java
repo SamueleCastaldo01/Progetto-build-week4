@@ -10,5 +10,11 @@ public class Rivenditore extends EmissioneBiglietti {
     public Rivenditore() {
     }
 
+    public String toString() {
+        return "Rivenditore{" +
+                "id= " +getId()+
+                '}';
+    }
+
 
 }

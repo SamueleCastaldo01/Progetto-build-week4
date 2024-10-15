@@ -10,6 +10,7 @@ import samueleCastaldo.dao.UtenteDao;
 import samueleCastaldo.entities.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Application {
 
@@ -46,13 +47,24 @@ public class Application {
         Tessera tessFound = tessDao.findById(1);
         Biglietto big1 = new Biglietto(LocalDate.now(), emBiglFound);
         Abbonamento abb1 = new Abbonamento(LocalDate.now(),emBiglFound,tessFound,TipoAbbonamento.SETTIMANALE);
-        //passDao.save(abb1);
+        //passDao.save(big1);
 
 
         //prima query test
         boolean checkabb1 = passDao.checkAbbByUtente(52, 1);
         System.out.println(checkabb1);
 
+        //Secondo query test, per raggruppamento
+        System.out.println("\n-----------------------------");
+        LocalDate dataInizio = LocalDate.of(2002, 3,3);
+        LocalDate dataFine = LocalDate.of(2025, 3, 3);
+        List<Object[]> testQuery = passDao.numeroPassPerPeriodoEPuntoEmissione(dataInizio, dataFine);
+        for (Object[] result : testQuery) {
+            EmissioneBiglietti emissioneBiglietti = (EmissioneBiglietti) result[0];
+            Long passCount = (Long) result[1];
+
+            System.out.println("Punto emissione: " + emissioneBiglietti + ", Numero di biglietti e abbonamenti: " + passCount);
+        }
 
         emf.close();
         em.close();

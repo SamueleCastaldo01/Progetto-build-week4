@@ -27,7 +27,8 @@ public class Distributore extends EmissioneBiglietti {
     @Override
     public String toString() {
         return "Distributore{" +
-                "attivo=" + attivo +
+                "id= " +getId()+
+                " attivo=" + attivo +
                 '}';
     }
 }

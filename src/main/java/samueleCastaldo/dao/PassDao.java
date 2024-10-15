@@ -9,6 +9,7 @@ import samueleCastaldo.entities.Tessera;
 import samueleCastaldo.entities.Utente;
 import samueleCastaldo.exceptions.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -35,6 +36,16 @@ public class PassDao {
         return found;
     }
 
+    //numero biglietti o abbonamenti, emessi in un dato periodo di tempo, e per punto di emissione
+    public List<Object[]> numeroPassPerPeriodoEPuntoEmissione(LocalDate data_inizio, LocalDate data_fine) {
+        TypedQuery<Object[]> query = em2.createQuery
+                ("SELECT p.emissioneBiglietti, COUNT(p) FROM Pass p WHERE p.dataEmissione BETWEEN :dataInizio AND :dataFine GROUP BY p.emissioneBiglietti", Object[].class);
+        query.setParameter("dataInizio", data_inizio);
+        query.setParameter("dataFine", data_fine);
+        return query.getResultList();
+    }
+
+    //validazione tramite idUtente e idAbbonamento
     public boolean checkAbbByUtente(long idUtente, long idAbbonamento) {
         TypedQuery<Long> query1 = em2.createQuery(
                 "SELECT t.id FROM Tessera t WHERE t.utente.id = :idu", Long.class);

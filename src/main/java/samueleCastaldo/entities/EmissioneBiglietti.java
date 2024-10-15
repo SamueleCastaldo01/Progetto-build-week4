@@ -24,6 +24,8 @@ public abstract class EmissioneBiglietti {
         this.id = id;
     }
 
+
+
     @Override
     public String toString() {
         return "EmissioneBiglietti{" +
