@@ -35,14 +35,28 @@ public class PassDao {
         return found;
     }
 
-    public boolean checkAbbByUtente(long idUtente, long idAbbonamento) {
-        TypedQuery <Long> query1 = em2.createQuery
-                ("SELECT t.id FROM Tessera t WHERE t.utente_id = :idU",Long.class);
-        query1.setParameter("idU",idUtente);
-        TypedQuery <Long> query2 = em2.createQuery
-                ("SELECT a.id_tessera FROM Abbonamento a WHERE a.id = :idA",Long.class);
-        query2.setParameter("idA",idAbbonamento);
-        if (query1 == query2) {
+    public Abbonamento findAbbById(long id) {
+        Abbonamento found = em2.find(Abbonamento.class, id);
+        if (found == null) throw new NotFoundException(id);
+        return found;
+    }
+
+    public boolean checkAbbByUtente(Utente utente, Abbonamento abbonamento) {
+        TypedQuery<Long> query1 = em2.createQuery(
+                "SELECT t.id FROM Tessera t WHERE t.utente = :utente", Long.class);
+        query1.setParameter("utente", utente);
+
+        Long tesseraId1 = query1.getSingleResult();
+        System.out.println("query 1 result: " + tesseraId1);
+
+        TypedQuery<Long> query2 = em2.createQuery(
+                "SELECT a.tessera.id FROM Abbonamento a WHERE a = :abbonamento", Long.class);
+        query2.setParameter("abbonamento", abbonamento);
+
+        Long tesseraId2 = query2.getSingleResult();
+        System.out.println("query 2 result: " + tesseraId2);
+
+        if(tesseraId1.equals(tesseraId2)) {
             return true;
         }
         return false;

@@ -29,7 +29,7 @@ public class Application {
         Utente u1 = new Utente("Aldo", "Baglio");
         //utenteDao.save(u1);
 
-        Utente utFound = utenteDao.findById(102);
+        Utente utFound = utenteDao.findById(52);
 
         Tessera t1 = new Tessera(LocalDate.now(), utFound);
         //tessDao.save(t1);
@@ -41,19 +41,22 @@ public class Application {
         //emBigliettiDao.save(dis2);
         //emBigliettiDao.save(riv1);
 
-        EmissioneBiglietti emBiglFound = emBigliettiDao.findById(202);
-        Tessera tessFound = tessDao.findById(102);
+        EmissioneBiglietti emBiglFound = emBigliettiDao.findById(1);
 
+        Tessera tessFound = tessDao.findById(1);
         Biglietto big1 = new Biglietto(LocalDate.now(), emBiglFound);
         Abbonamento abb1 = new Abbonamento(LocalDate.now(),emBiglFound,tessFound,TipoAbbonamento.SETTIMANALE);
         //passDao.save(abb1);
+        Abbonamento abbFound = passDao.findAbbById(1);
 
-        boolean checkabb1 = passDao.checkAbbByUtente(102,152);
+
+        //prima query test
+        boolean checkabb1 = passDao.checkAbbByUtente(utFound, abbFound);
         System.out.println(checkabb1);
 
 
-
-        //passDao.save(abb1);
+        emf.close();
+        em.close();
 
     }
 
