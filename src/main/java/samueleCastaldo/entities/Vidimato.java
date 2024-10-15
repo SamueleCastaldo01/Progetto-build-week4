@@ -65,4 +65,6 @@ public class Vidimato {
                 ", data_convalida=" + data_convalida +
                 '}';
     }
+
+
 }
