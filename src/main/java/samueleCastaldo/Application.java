@@ -47,11 +47,10 @@ public class Application {
         Biglietto big1 = new Biglietto(LocalDate.now(), emBiglFound);
         Abbonamento abb1 = new Abbonamento(LocalDate.now(),emBiglFound,tessFound,TipoAbbonamento.SETTIMANALE);
         //passDao.save(abb1);
-        Abbonamento abbFound = passDao.findAbbById(1);
 
 
         //prima query test
-        boolean checkabb1 = passDao.checkAbbByUtente(utFound, abbFound);
+        boolean checkabb1 = passDao.checkAbbByUtente(52, 1);
         System.out.println(checkabb1);
 
 
