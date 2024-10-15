@@ -153,6 +153,10 @@ public class Application {
         //statDao.getPeriodoDiManutenzioneByMezzo(1005);
         //statDao.getPeriodoDiManutenzioneServizioByMezzo(1005);
 
+        //quarta
+        //vidDao.getBigliettiVidimatiByMezzo(1005);
+        vidDao.getBigliettiVidimatiByPeriodo(LocalDate.of(2002, 10, 15), LocalDate.of(2025, 10,10));
+
 
         emf.close();
         em.close();
