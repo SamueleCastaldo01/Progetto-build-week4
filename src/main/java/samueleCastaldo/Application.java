@@ -3,11 +3,9 @@ package samueleCastaldo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import samueleCastaldo.dao.EmBigliettiDao;
-import samueleCastaldo.dao.PassDao;
-import samueleCastaldo.dao.TesseraDao;
-import samueleCastaldo.dao.UtenteDao;
+import samueleCastaldo.dao.*;
 import samueleCastaldo.entities.*;
+import samueleCastaldo.exceptions.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,11 +18,12 @@ public class Application {
 
         EntityManager em = emf.createEntityManager();
         System.out.println("Hello World!");
-
+        MezziDAO mezziDAO = new MezziDAO(em);
         TesseraDao tessDao = new TesseraDao(em);
         UtenteDao utenteDao = new UtenteDao(em);
         PassDao passDao = new PassDao(em);
         EmBigliettiDao emBigliettiDao = new EmBigliettiDao(em);
+
 
 
         Utente u1 = new Utente("Aldo", "Baglio");
@@ -42,7 +41,7 @@ public class Application {
         //emBigliettiDao.save(dis2);
         //emBigliettiDao.save(riv1);
 
-        EmissioneBiglietti emBiglFound = emBigliettiDao.findById(1);
+       EmissioneBiglietti emBiglFound = emBigliettiDao.findById(1);
 
         Tessera tessFound = tessDao.findById(1);
         Biglietto big1 = new Biglietto(LocalDate.now(), emBiglFound);
@@ -51,8 +50,21 @@ public class Application {
 
 
         //prima query test
-        boolean checkabb1 = passDao.checkAbbByUtente(52, 1);
-        System.out.println(checkabb1);
+        //boolean checkabb1 = passDao.checkAbbByUtente(52, 1);
+       // System.out.println(checkabb1);
+
+
+        Mezzi m1 = new Tram(30, "Manutenzione","T7");
+        //mezziDAO.saveMezzo(m1);
+        try {
+
+            Mezzi mezzoFound = mezziDAO.getMezzo(5);
+
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+
 
         //Secondo query test, per raggruppamento
         System.out.println("\n-----------------------------");
