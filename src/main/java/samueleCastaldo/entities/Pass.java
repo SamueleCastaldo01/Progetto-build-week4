@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
 @Entity
 public abstract class Pass {
     @Id
@@ -17,7 +17,6 @@ public abstract class Pass {
     @JoinColumn(name = "id_vendita", referencedColumnName = "id")
     protected EmissioneBiglietti emissioneBiglietti;
     @Column (name = "data_emissione", nullable = false)
-    @Column(name = "data_emissione", nullable = false)
     protected LocalDate dataEmissione;
 
 
@@ -25,7 +24,6 @@ public abstract class Pass {
     }
 
     public Pass(LocalDate dataEmissione,EmissioneBiglietti emissioneBiglietti) {
-    public Pass(LocalDate dataEmissione, EmissioneBiglietti emissioneBiglietti) {
         this.dataEmissione = dataEmissione;
         this.emissioneBiglietti = emissioneBiglietti;
     }
