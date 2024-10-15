@@ -19,7 +19,7 @@ public class StatusDao {
         transiction.begin();
         em2.persist(status);
         transiction.commit();
-        System.out.println("Il distribitore con id " + status.getId() + " è stato inserito");
+        System.out.println("Lo status con id " + status.getId() + " è stato inserito");
     }
 
     public Status findById(long id) {

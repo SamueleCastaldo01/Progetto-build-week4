@@ -3,10 +3,11 @@ package samueleCastaldo.entities;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 @Entity
-@DiscriminatorValue("IN SERVIZIO")
+@Table(name = "in_servizio")
 
 public class InServizio extends Status{
 //protected Tratta tratta;
@@ -17,5 +18,15 @@ public class InServizio extends Status{
 
     public InServizio(LocalDate dataFine, LocalDate dataInizio, Mezzi mezzo) {
         super(dataFine, dataInizio, mezzo);
+    }
+
+    @Override
+    public String toString() {
+        return "InServizio{" +
+                "dataFine=" + dataFine +
+                ", dataInizio=" + dataInizio +
+                ", id=" + id +
+                ", mezzo=" + mezzo +
+                '}';
     }
 }
