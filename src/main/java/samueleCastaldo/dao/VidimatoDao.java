@@ -21,6 +21,8 @@ public class VidimatoDao {
         tx.begin();
         em2.persist(newVidimato);
         tx.commit();
+        PassDao passDao = new PassDao(em2);
+        //passDao.deleteBiglietto(newVidimato.getBiglietto());
         System.out.println("Vidimato creato: " + newVidimato + " saved");
     }
 

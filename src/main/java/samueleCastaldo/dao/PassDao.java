@@ -3,10 +3,7 @@ package samueleCastaldo.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
-import samueleCastaldo.entities.Abbonamento;
-import samueleCastaldo.entities.Pass;
-import samueleCastaldo.entities.Tessera;
-import samueleCastaldo.entities.Utente;
+import samueleCastaldo.entities.*;
 import samueleCastaldo.exceptions.NotFoundException;
 
 import java.time.LocalDate;
@@ -34,6 +31,48 @@ public class PassDao {
         if (found == null) throw new NotFoundException(id);
         return found;
     }
+
+    public Biglietto findByIdBiglietto(long id) {
+        Biglietto found = em2.find(Biglietto.class, id);
+        if (found == null) throw new NotFoundException(id);
+        return found;
+    }
+
+
+    public void deleteBigliettoById (long idBiglietto){
+        EntityTransaction transaction = em2.getTransaction();
+        try {
+            transaction.begin();
+            Biglietto bigliettofound = findByIdBiglietto(idBiglietto);
+            if (bigliettofound != null){
+                em2.remove(bigliettofound);
+                transaction.commit();
+                System.out.println("Il biglietto con id "+ idBiglietto+ " è stato eliminato");
+            } else {
+                System.out.println("Nessun biglietto con id "+ idBiglietto);
+            }
+        } catch (IllegalArgumentException ex){
+            System.out.println("Devi inserire un numero");
+        }
+    }
+
+    public void deleteBiglietto (Biglietto biglietto){
+        EntityTransaction transaction = em2.getTransaction();
+        try {
+            transaction.begin();
+            if (biglietto != null){
+                em2.remove(biglietto);
+                transaction.commit();
+                System.out.println("Il biglietto con id "+ biglietto.getId()+ " è stato eliminato");
+            } else {
+                System.out.println("Nessun biglietto con id "+ biglietto.getId());
+            }
+        } catch (IllegalArgumentException ex){
+            System.out.println("Devi inserire un numero");
+        }
+    }
+
+
 
     //numero biglietti o abbonamenti, emessi in un dato periodo di tempo, e per punto di emissione
     public List<Object[]> numeroPassPerPeriodoEPuntoEmissione(LocalDate data_inizio, LocalDate data_fine) {

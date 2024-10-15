@@ -56,27 +56,27 @@ public class Application {
         Abbonamento abb4 = new Abbonamento(LocalDate.now(), riv1, t1, TipoAbbonamento.MENSILE);
 
         Mezzi a1 = new Autobus(50, "A9");
-        Mezzi tram1 = new Tram(30,  "T9");
+        Mezzi tram1 = new Tram(30, "T9");
         Mezzi a2 = new Autobus(50, "H9");
         Mezzi tram2 = new Tram(30, "B9");
-        Mezzi a3 = new Autobus(50,  "C9");
-        Mezzi tram3 = new Tram(30,  "D9");
+        Mezzi a3 = new Autobus(50, "C9");
+        Mezzi tram3 = new Tram(30, "D9");
 
-        InManutenzione stat1 = new InManutenzione(LocalDate.of(2023,01,10),LocalDate.of(2024, 01, 10),a1);
-        InServizio stat2 = new InServizio(LocalDate.of(2022,01,10),LocalDate.now(),tram1);
-        InServizio stat6 = new InServizio(LocalDate.of(2024,01,10),LocalDate.now(),tram1);
-        InServizio stat7 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),tram1);
-        InManutenzione stat8 = new InManutenzione(LocalDate.of(2002, 2, 2), LocalDate.of(2003,2,2), tram1);
-        InServizio stat3 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),tram2);
-        InServizio stat4 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),a2);
-        InManutenzione stat5 = new InManutenzione(LocalDate.of(2024,01,11),LocalDate.now(),a1);
+        InManutenzione stat1 = new InManutenzione(LocalDate.of(2023, 01, 10), LocalDate.of(2024, 01, 10), a1);
+        InServizio stat2 = new InServizio(LocalDate.of(2022, 01, 10), LocalDate.now(), tram1);
+        InServizio stat6 = new InServizio(LocalDate.of(2024, 01, 10), LocalDate.now(), tram1);
+        InServizio stat7 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), tram1);
+        InManutenzione stat8 = new InManutenzione(LocalDate.of(2002, 2, 2), LocalDate.of(2003, 2, 2), tram1);
+        InServizio stat3 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), tram2);
+        InServizio stat4 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), a2);
+        InManutenzione stat5 = new InManutenzione(LocalDate.of(2024, 01, 11), LocalDate.now(), a1);
 
-        Vidimato vidi1 = new Vidimato(big1,LocalDate.now(),stat2);
-        Vidimato vidi2 = new Vidimato(big2,LocalDate.now(),stat2);
-        Vidimato vidi3 = new Vidimato(big3,LocalDate.now(),stat2);
-        Vidimato vidi4 = new Vidimato(big4,LocalDate.now(),stat3);
-        Vidimato vidi5 = new Vidimato(big5,LocalDate.now(),stat4);
-        Vidimato vidi6 = new Vidimato(big6,LocalDate.now(),stat4);
+        Vidimato vidi1 = new Vidimato(big1, LocalDate.now(), stat2);
+        Vidimato vidi2 = new Vidimato(big2, LocalDate.now(), stat2);
+        Vidimato vidi3 = new Vidimato(big3, LocalDate.now(), stat2);
+        Vidimato vidi4 = new Vidimato(big4, LocalDate.now(), stat3);
+        Vidimato vidi5 = new Vidimato(big5, LocalDate.now(), stat4);
+        Vidimato vidi6 = new Vidimato(big6, LocalDate.now(), stat4);
 
 
     /*
@@ -127,8 +127,7 @@ public class Application {
         vidDao.save(vidi4);
         vidDao.save(vidi5);
         vidDao.save(vidi6);
-    */
-
+*/
 
 
         //prima query test
@@ -155,7 +154,7 @@ public class Application {
 
         //quarta
         //vidDao.getBigliettiVidimatiByMezzo(1005);
-        vidDao.getBigliettiVidimatiByPeriodo(LocalDate.of(2002, 10, 15), LocalDate.of(2025, 10,10));
+        vidDao.getBigliettiVidimatiByPeriodo(LocalDate.of(2002, 10, 15), LocalDate.of(2025, 10, 10));
 
 
         emf.close();
