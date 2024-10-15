@@ -16,7 +16,7 @@ public class MezziDAO {
         this.em = em;
     }
 
-    public void saveMezzo(Mezzi mezzo) {
+    public void save(Mezzi mezzo) {
             EntityTransaction tx = em.getTransaction();
             tx.begin();
             em.persist(mezzo);
