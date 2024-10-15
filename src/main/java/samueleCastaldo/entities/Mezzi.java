@@ -43,5 +43,15 @@ public abstract class Mezzi {
     public void setCodiceMezzo(String codiceMezzo) {
         this.codiceMezzo = codiceMezzo;
     }
+
+    @Override
+    public String toString() {
+        return "Mezzi{" +
+                "id=" + id +
+                ", capienza=" + capienza +
+                ", status='" + status + '\'' +
+                ", codiceMezzo='" + codiceMezzo + '\'' +
+                '}';
+    }
 }
 

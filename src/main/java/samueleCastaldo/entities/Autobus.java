@@ -15,7 +15,13 @@ public class Autobus extends Mezzi {
     }
 
 
-
-
-
+    @Override
+    public String toString() {
+        return "Autobus{" +
+                "id=" + id +
+                ", capienza=" + capienza +
+                ", status='" + status + '\'' +
+                ", codiceMezzo='" + codiceMezzo + '\'' +
+                '}';
+    }
 }

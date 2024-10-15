@@ -22,7 +22,7 @@ public class MezziDAO {
             em.persist(mezzo);
             tx.commit();
             em.close();
-            System.out.println("Mezzo " + mezzo.getId() + " saved");
+            System.out.println("Mezzo: " + mezzo + " saved");
     }
     public Mezzi getMezzo(long id) {
             Mezzi mezzotrovato = em.find(Mezzi.class, id);

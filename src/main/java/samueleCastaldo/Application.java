@@ -54,15 +54,9 @@ public class Application {
        // System.out.println(checkabb1);
 
 
-        Mezzi m1 = new Tram(30, "Manutenzione","T7");
-        //mezziDAO.saveMezzo(m1);
-        try {
+        Mezzi m2 = new Autobus(50, "Manutenzione","A9");
+        mezziDAO.saveMezzo(m2);
 
-            Mezzi mezzoFound = mezziDAO.getMezzo(5);
-
-        } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
-        }
 
 
 

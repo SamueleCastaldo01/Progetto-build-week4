@@ -16,5 +16,13 @@ public class Tram extends Mezzi {
         super(capienza, status, codiceMezzo);
     }
 
-
+    @Override
+    public String toString() {
+        return "Tram{" +
+                "id=" + id +
+                ", capienza=" + capienza +
+                ", status='" + status + '\'' +
+                ", codiceMezzo='" + codiceMezzo + '\'' +
+                '}';
+    }
 }
