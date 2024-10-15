@@ -55,7 +55,7 @@ public class Application {
 
 
         Mezzi m2 = new Autobus(50, "Manutenzione","A9");
-        mezziDAO.saveMezzo(m2);
+        //mezziDAO.saveMezzo(m2);
 
 
 
