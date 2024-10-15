@@ -10,8 +10,8 @@ public class Autobus extends Mezzi {
     public Autobus() {
         super();
     }
-    public Autobus(int capienza, String status, String codiceMezzo) {
-        super(capienza, status, codiceMezzo);
+    public Autobus(int capienza, String codiceMezzo) {
+        super(capienza, codiceMezzo);
     }
 
 
@@ -20,7 +20,6 @@ public class Autobus extends Mezzi {
         return "Autobus{" +
                 "id=" + id +
                 ", capienza=" + capienza +
-                ", status='" + status + '\'' +
                 ", codiceMezzo='" + codiceMezzo + '\'' +
                 '}';
     }

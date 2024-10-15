@@ -11,7 +11,7 @@ public class InManutenzione extends Status{
     public InManutenzione() {
     }
 
-    public InManutenzione(LocalDate dataFine, LocalDate dataInizio, Mezzi mezzo) {
+    public InManutenzione(LocalDate dataInizio, LocalDate dataFine, Mezzi mezzo) {
         super(dataFine, dataInizio, mezzo);
     }
 

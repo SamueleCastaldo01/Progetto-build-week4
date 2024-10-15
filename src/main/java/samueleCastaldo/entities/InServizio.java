@@ -15,7 +15,7 @@ public class InServizio extends Status {
     public InServizio() {
     }
 
-    public InServizio(LocalDate dataFine, LocalDate dataInizio, Mezzi mezzo) {
+    public InServizio(LocalDate dataInizio, LocalDate dataFine, Mezzi mezzo) {
         super(dataFine, dataInizio, mezzo);
     }
 

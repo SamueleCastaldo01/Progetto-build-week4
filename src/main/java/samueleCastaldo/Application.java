@@ -55,15 +55,18 @@ public class Application {
         Abbonamento abb3 = new Abbonamento(LocalDate.now(), dis2, t2, TipoAbbonamento.SETTIMANALE);
         Abbonamento abb4 = new Abbonamento(LocalDate.now(), riv1, t1, TipoAbbonamento.MENSILE);
 
-        Mezzi a1 = new Autobus(50, "Servizio", "A9");
-        Mezzi tram1 = new Tram(30, "Manutenzione", "T9");
-        Mezzi a2 = new Autobus(50, "Manutenzione", "H9");
-        Mezzi tram2 = new Tram(30, "Servizio", "B9");
-        Mezzi a3 = new Autobus(50, "Servizio", "C9");
-        Mezzi tram3 = new Tram(30, "Servizio", "D9");
+        Mezzi a1 = new Autobus(50, "A9");
+        Mezzi tram1 = new Tram(30,  "T9");
+        Mezzi a2 = new Autobus(50, "H9");
+        Mezzi tram2 = new Tram(30, "B9");
+        Mezzi a3 = new Autobus(50,  "C9");
+        Mezzi tram3 = new Tram(30,  "D9");
 
         InManutenzione stat1 = new InManutenzione(LocalDate.of(2023,01,10),LocalDate.of(2024, 01, 10),a1);
         InServizio stat2 = new InServizio(LocalDate.of(2022,01,10),LocalDate.now(),tram1);
+        InServizio stat6 = new InServizio(LocalDate.of(2024,01,10),LocalDate.now(),tram1);
+        InServizio stat7 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),tram1);
+        InManutenzione stat8 = new InManutenzione(LocalDate.of(2002, 2, 2), LocalDate.of(2003,2,2), tram1);
         InServizio stat3 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),tram2);
         InServizio stat4 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),a2);
         InManutenzione stat5 = new InManutenzione(LocalDate.of(2024,01,11),LocalDate.now(),a1);
@@ -76,9 +79,7 @@ public class Application {
         Vidimato vidi6 = new Vidimato(big6,LocalDate.now(),stat4);
 
 
-
-
-
+    /*
         utenteDao.save(u1);
         utenteDao.save(u2);
         utenteDao.save(u3);
@@ -116,6 +117,9 @@ public class Application {
         statDao.save(stat3);
         statDao.save(stat4);
         statDao.save(stat5);
+        statDao.save(stat6);
+        statDao.save(stat7);
+        statDao.save(stat8);
 
         vidDao.save(vidi1);
         vidDao.save(vidi2);
@@ -123,6 +127,8 @@ public class Application {
         vidDao.save(vidi4);
         vidDao.save(vidi5);
         vidDao.save(vidi6);
+    */
+
 
 
         //prima query test
@@ -141,6 +147,12 @@ public class Application {
 
             System.out.println("Punto emissione: " + emissioneBiglietti + ", Numero di biglietti e abbonamenti: " + passCount);
         }
+
+        //terza query
+        //statDao.getPeriodoDiServizioByMezzo(1005);
+        //statDao.getPeriodoDiManutenzioneByMezzo(1005);
+        //statDao.getPeriodoDiManutenzioneServizioByMezzo(1005);
+
 
         emf.close();
         em.close();

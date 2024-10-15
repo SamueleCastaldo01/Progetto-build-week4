@@ -12,8 +12,8 @@ public class Tram extends Mezzi {
     public Tram() {
         super();
     }
-    public Tram(int capienza, String status, String codiceMezzo) {
-        super(capienza, status, codiceMezzo);
+    public Tram(int capienza, String codiceMezzo) {
+        super(capienza, codiceMezzo);
     }
 
     @Override
@@ -21,7 +21,6 @@ public class Tram extends Mezzi {
         return "Tram{" +
                 "id=" + id +
                 ", capienza=" + capienza +
-                ", status='" + status + '\'' +
                 ", codiceMezzo='" + codiceMezzo + '\'' +
                 '}';
     }

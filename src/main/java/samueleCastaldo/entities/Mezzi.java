@@ -9,16 +9,13 @@ public abstract class Mezzi {
     protected long id;
     @Column(nullable = false)
     protected int capienza;
-    @Column(nullable = false)
-    protected String status;
     @Column(name = "codice_mezzo", nullable = false, unique = true)
     protected String codiceMezzo;
 
     public Mezzi() {}
 
-    public Mezzi(int capienza, String status, String codiceMezzo) {
+    public Mezzi(int capienza, String codiceMezzo) {
         this.capienza = capienza;
-        this.status = status;
         this.codiceMezzo = codiceMezzo;
     }
     public long getId() {
@@ -30,12 +27,6 @@ public abstract class Mezzi {
     }
     public void setCapienza(int capienza) {
         this.capienza = capienza;
-    }
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
     }
     public String getCodiceMezzo() {
         return codiceMezzo;
@@ -49,7 +40,6 @@ public abstract class Mezzi {
         return "Mezzi{" +
                 "id=" + id +
                 ", capienza=" + capienza +
-                ", status='" + status + '\'' +
                 ", codiceMezzo='" + codiceMezzo + '\'' +
                 '}';
     }
