@@ -66,6 +66,7 @@ public class Application {
         Mezzi a3 = new Autobus(50, "Servizio", "C9");
         Mezzi tram3 = new Tram(30, "Servizio", "D9");
 
+
         /*utenteDao.save(u1);
         utenteDao.save(u2);
         utenteDao.save(u3);
