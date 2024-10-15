@@ -127,7 +127,7 @@ public class Application {
         vidDao.save(vidi4);
         vidDao.save(vidi5);
         vidDao.save(vidi6);
-*/
+        */
 
 
         //prima query test
