@@ -20,7 +20,6 @@ public class UtenteDao {
         transiction.begin();
         em2.persist(utente);
         transiction.commit();
-        em2.close();
         System.out.println("L'utente con id " + utente.getId() + " è stato inserito");
     }
 

@@ -19,7 +19,6 @@ public class EmBigliettiDao {
         transiction.begin();
         em2.persist(emBiglietti);
         transiction.commit();
-        em2.close();
         System.out.println("Il distribitore con id " + emBiglietti.getId() + " è stato inserito");
     }
 

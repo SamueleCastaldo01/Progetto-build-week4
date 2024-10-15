@@ -19,7 +19,6 @@ public class TesseraDao {
         transiction.begin();
         em2.persist(tessera);
         transiction.commit();
-        em2.close();
         System.out.println("La tessera con id " + tessera.getId() + " è stato inserito");
     }
 

@@ -26,7 +26,6 @@ public class PassDao {
         transiction.begin();
         em2.persist(pass);
         transiction.commit();
-        em2.close();
         System.out.println("Il pass con id " + pass.getId() + " è stato inserito");
     }
 

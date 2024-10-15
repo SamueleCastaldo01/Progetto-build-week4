@@ -21,7 +21,6 @@ public class MezziDAO {
             tx.begin();
             em.persist(mezzo);
             tx.commit();
-            em.close();
             System.out.println("Mezzo: " + mezzo + " saved");
     }
     public Mezzi getMezzo(long id) {
