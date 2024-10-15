@@ -26,6 +26,7 @@ public class Application {
         PassDao passDao = new PassDao(em);
         EmBigliettiDao emBigliettiDao = new EmBigliettiDao(em);
         StatusDao statDao = new StatusDao(em);
+        VidimatoDao vidDao = new VidimatoDao(em);
 
 
         Utente u1 = new Utente("Aldo", "Baglio");
@@ -61,11 +62,22 @@ public class Application {
         Mezzi a3 = new Autobus(50, "Servizio", "C9");
         Mezzi tram3 = new Tram(30, "Servizio", "D9");
 
-        Status stat1 = new InManutenzione(LocalDate.of(2023,01,10),LocalDate.of(2024, 01, 10),a1);
-        Status stat2 = new InServizio(LocalDate.of(2022,01,10),LocalDate.now(),tram1);
-        Status stat3 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),tram2);
-        Status stat4 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),a2);
-        Status stat5 = new InManutenzione(LocalDate.of(2024,01,11),LocalDate.now(),a1);
+        InManutenzione stat1 = new InManutenzione(LocalDate.of(2023,01,10),LocalDate.of(2024, 01, 10),a1);
+        InServizio stat2 = new InServizio(LocalDate.of(2022,01,10),LocalDate.now(),tram1);
+        InServizio stat3 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),tram2);
+        InServizio stat4 = new InServizio(LocalDate.of(2021,01,10),LocalDate.now(),a2);
+        InManutenzione stat5 = new InManutenzione(LocalDate.of(2024,01,11),LocalDate.now(),a1);
+
+        Vidimato vidi1 = new Vidimato(big1,LocalDate.now(),stat2);
+        Vidimato vidi2 = new Vidimato(big2,LocalDate.now(),stat2);
+        Vidimato vidi3 = new Vidimato(big3,LocalDate.now(),stat2);
+        Vidimato vidi4 = new Vidimato(big4,LocalDate.now(),stat3);
+        Vidimato vidi5 = new Vidimato(big5,LocalDate.now(),stat4);
+        Vidimato vidi6 = new Vidimato(big6,LocalDate.now(),stat4);
+
+
+
+
 
         utenteDao.save(u1);
         utenteDao.save(u2);
@@ -104,6 +116,13 @@ public class Application {
         statDao.save(stat3);
         statDao.save(stat4);
         statDao.save(stat5);
+
+        vidDao.save(vidi1);
+        vidDao.save(vidi2);
+        vidDao.save(vidi3);
+        vidDao.save(vidi4);
+        vidDao.save(vidi5);
+        vidDao.save(vidi6);
 
 
         //prima query test

@@ -1,16 +1,15 @@
 package samueleCastaldo.entities;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Table(name = "in_servizio")
 
-public class InServizio extends Status{
-//protected Tratta tratta;
+public class InServizio extends Status {
+    //protected Tratta tratta;
 
 
     public InServizio() {

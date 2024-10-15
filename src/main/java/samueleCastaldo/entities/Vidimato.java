@@ -11,26 +11,26 @@ public class Vidimato {
     @GeneratedValue
     private long id;
     @OneToOne
-    @JoinColumn(name = "biglietto_id")
+    @JoinColumn(name = "biglietto_id",unique = true)
     private Biglietto biglietto;
     @ManyToOne
-    @JoinColumn(name = "mezzo_id")
-    private Mezzi mezzo;
+    @JoinColumn(name = "id_servizio", referencedColumnName = "id")
+    private InServizio servizio;
     private LocalDate data_convalida;
 
-    public Vidimato(Biglietto biglietto, Mezzi mezzo, LocalDate data_convalida) {
+    public Vidimato() {
+    }
+
+    public Vidimato(Biglietto biglietto, LocalDate data_convalida, InServizio servizio) {
         this.biglietto = biglietto;
-        this.mezzo = mezzo;
         this.data_convalida = data_convalida;
+        this.servizio = servizio;
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public Biglietto getBiglietto() {
         return biglietto;
@@ -40,13 +40,7 @@ public class Vidimato {
         this.biglietto = biglietto;
     }
 
-    public Mezzi getMezzo() {
-        return mezzo;
-    }
 
-    public void setMezzo(Mezzi mezzo) {
-        this.mezzo = mezzo;
-    }
 
     public LocalDate getData_convalida() {
         return data_convalida;
@@ -61,7 +55,6 @@ public class Vidimato {
         return "Vidimato{" +
                 "id=" + id +
                 ", biglietto=" + biglietto +
-                ", mezzo=" + mezzo +
                 ", data_convalida=" + data_convalida +
                 '}';
     }
