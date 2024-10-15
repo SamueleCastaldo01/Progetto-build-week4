@@ -46,7 +46,11 @@ public class Application {
 
         Biglietto big1 = new Biglietto(LocalDate.now(), emBiglFound);
         Abbonamento abb1 = new Abbonamento(LocalDate.now(),emBiglFound,tessFound,TipoAbbonamento.SETTIMANALE);
-        passDao.save(abb1);
+        //passDao.save(abb1);
+
+        boolean checkabb1 = passDao.checkAbbByUtente(102,152);
+        System.out.println(checkabb1);
+
 
 
         //passDao.save(abb1);
