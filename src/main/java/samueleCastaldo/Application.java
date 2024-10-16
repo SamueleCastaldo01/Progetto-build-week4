@@ -101,7 +101,7 @@ public class Application {
         Viaggio viaggio10 = new Viaggio(120, LocalDateTime.of(2014, 10, 15, 15, 25), stat6 );
         Viaggio viaggio11 = new Viaggio(120, LocalDateTime.of(2023, 10, 15, 15, 17), stat2 );
 
-
+    /*
         utenteDao.save(u1);
         utenteDao.save(u2);
         utenteDao.save(u3);
@@ -172,6 +172,8 @@ public class Application {
         viaggioDAO.save(viaggio10);
         viaggioDAO.save(viaggio11);
 
+     */
+
 
         //prima query test
         //boolean checkabb1 = passDao.checkAbbByUtente(52, 1);
@@ -199,6 +201,8 @@ public class Application {
         //vidDao.getBigliettiVidimatiByMezzo(1005);
         vidDao.getBigliettiVidimatiByPeriodo(LocalDate.of(2002, 10, 15), LocalDate.of(2025, 10, 10));
 
+        //quinta query, sezione 3. Contatore c per n viaggi mezzo/tratta; input idMezzo
+        long result = viaggioDAO.countMezzoPercorreTratta(1155);
 
         emf.close();
         em.close();
