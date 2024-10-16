@@ -18,11 +18,17 @@ public class Viaggio {
     @ManyToOne
     @JoinColumn(name = "id_servizio", referencedColumnName = "id" )
     private InServizio servizio;
+    @ManyToOne
+    @JoinColumn(name = "id_mezzo", referencedColumnName = "id")
+    private Mezzi mezzo;
 
     public Viaggio(int tempo_effettivo, LocalDateTime data_partenza, InServizio servizio) {
         this.tempo_effettivo = tempo_effettivo;
         this.data_partenza = data_partenza;
         this.servizio = servizio;
+        if(servizio != null) {
+            this.mezzo = servizio.getMezzo();
+        }
     }
     public Viaggio() {}
 
@@ -30,6 +36,13 @@ public class Viaggio {
         return id;
     }
 
+    public Mezzi getMezzo() {
+        return mezzo;
+    }
+
+    public void setMezzo(Mezzi mezzo) {
+        this.mezzo = mezzo;
+    }
 
     public int getTempo_effettivo() {
         return tempo_effettivo;
@@ -53,6 +66,9 @@ public class Viaggio {
 
     public void setServizio(InServizio servizio) {
         this.servizio = servizio;
+        if(servizio != null) {
+            this.mezzo = servizio.getMezzo();
+        }
     }
 
     @Override
