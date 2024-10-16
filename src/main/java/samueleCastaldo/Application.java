@@ -90,6 +90,16 @@ public class Application {
         Vidimato vidi6 = new Vidimato(big6, LocalDate.now(), stat4);
 
         Viaggio viaggio1 = new Viaggio(120, LocalDateTime.of(2024, 10, 15, 15, 10), stat2 );
+        Viaggio viaggio2 = new Viaggio(90, LocalDateTime.of(2023, 12, 5, 18, 20), stat6 );
+        Viaggio viaggio3 = new Viaggio(120, LocalDateTime.of(2020, 10, 12, 5, 50), stat2 );
+        Viaggio viaggio4 = new Viaggio(120, LocalDateTime.of(2022, 10, 25, 7, 19), stat7 );
+        Viaggio viaggio5 = new Viaggio(120, LocalDateTime.of(2024, 10, 30, 16, 14), stat2 );
+        Viaggio viaggio6 = new Viaggio(120, LocalDateTime.of(2019, 10, 20, 20, 14), stat2 );
+        Viaggio viaggio7 = new Viaggio(120, LocalDateTime.of(2024, 10, 18, 12, 40), stat4 );
+        Viaggio viaggio8 = new Viaggio(120, LocalDateTime.of(2024, 10, 10, 15, 30), stat2 );
+        Viaggio viaggio9 = new Viaggio(120, LocalDateTime.of(2024, 10, 31, 15, 20), stat6 );
+        Viaggio viaggio10 = new Viaggio(120, LocalDateTime.of(2014, 10, 15, 15, 25), stat6 );
+        Viaggio viaggio11 = new Viaggio(120, LocalDateTime.of(2023, 10, 15, 15, 17), stat2 );
 
 
         utenteDao.save(u1);
@@ -150,6 +160,17 @@ public class Application {
         vidDao.save(vidi6);
 
         viaggioDAO.save(viaggio1);
+        viaggioDAO.save(viaggio2);
+        viaggioDAO.save(viaggio3);
+        viaggioDAO.save(viaggio4);
+        viaggioDAO.save(viaggio5);
+        viaggioDAO.save(viaggio6);
+        viaggioDAO.save(viaggio6);
+        viaggioDAO.save(viaggio7);
+        viaggioDAO.save(viaggio8);
+        viaggioDAO.save(viaggio9);
+        viaggioDAO.save(viaggio10);
+        viaggioDAO.save(viaggio11);
 
 
         //prima query test
