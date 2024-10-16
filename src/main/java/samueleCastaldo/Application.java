@@ -6,6 +6,8 @@ import jakarta.persistence.Persistence;
 import samueleCastaldo.dao.*;
 import samueleCastaldo.entities.*;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Iterator;
@@ -16,12 +18,268 @@ public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("buildWeek4");
 
     public static void main(String[] args) {
-
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("buildWeek4");
         EntityManager em = emf.createEntityManager();
-        System.out.println("Hello World!");
+        Scanner scanner = new Scanner(System.in);
+        boolean accessGranted = false;
+
+        while (!accessGranted) {
+            System.out.println("Benvenuto nel sistema di gestione trasporti!");
+            System.out.print("Sei un amministratore o un utente comune? (admin/utente): ");
+            String userType = scanner.nextLine();
+
+            if (userType.equalsIgnoreCase("admin")) {
+                accessGranted = adminAccess(scanner);
+                if (accessGranted) {
+                    showAdminMenu(scanner, em);
+                } else {
+                    System.out.println("Accesso amministratore negato. Riprova.");
+                }
+            } else if (userType.equalsIgnoreCase("utente")) {
+                showUserMenu(scanner, em);
+            } else {
+                System.out.println("Scelta non valida. Riprova.");
+            }
+        }
+
+        em.close();
+        scanner.close();
+        emf.close();
+    }
+
+    private static boolean adminAccess(Scanner scanner) {
+        String adminPassword = "calamaro87";
+        int attempts = 0;
+
+        while (attempts < 3) {
+            System.out.print("Inserisci la password per l'accesso come amministratore: ");
+            String inputPassword = scanner.nextLine();
+
+            if (inputPassword.equals(adminPassword)) {
+                return true; // Accesso riuscito
+            } else {
+                attempts++;
+                System.out.println("Password errata. Hai " + (3 - attempts) + " tentativi rimanenti.");
+            }
+        }
+
+        return false;
+    }
 
 
+    // menu
+    private static void showAdminMenu(Scanner scanner, EntityManager em) {
+        int choice;
+
+        do {
+            System.out.println("Menu Amministratore:");
+            System.out.println("1. Aggiungi un nuovo mezzo");
+            System.out.println("2. Gestisci biglietti o abbonamenti");
+            System.out.println("3. Calcola tempo medio di percorrenza");
+            System.out.println("0. Esci");
+            System.out.print("Scegli un'opzione: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    addMezzo(scanner, em);
+                    break;
+                case 2:
+                    manageTicketsAndSubscriptions(scanner, em);
+                    break;
+                /*case 3:
+                    calculateAverageTravelTime(scanner, em);
+                    break;*/
+                case 0:
+                    System.out.println("Uscita dal sistema.");
+                    break;
+                default:
+                    System.out.println("Opzione non valida. Riprova.");
+            }
+        } while (choice != 0);
+    }
+    private static void manageTicketsAndSubscriptions(Scanner scanner, EntityManager em) {
+        boolean running = true;
+
+        while (running) {
+            System.out.println("Gestisci Biglietti e Abbonamenti:");
+            System.out.println("1. Visualizza informazioni sui biglietti");
+            System.out.println("2. Visualizza informazioni sugli abbonamenti");
+            System.out.println("3. Verifica validità abbonamento");
+            System.out.println("4. Torna al menu principale");
+
+            int scelta = Integer.parseInt(scanner.nextLine());
+
+            switch (scelta) {
+                case 1:
+                    showTicketInfo(scanner, em);
+                    break;
+                case 2:
+                    showSubscriptionInfo(scanner, em);
+                    break;
+                case 3:
+                    verifySubscriptionValidity(scanner, em);
+                    break;
+                case 4:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Scelta non valida. Riprova.");
+            }
+        }
+    }
+
+    private static void showTicketInfo(Scanner scanner, EntityManager em) {
+        // AldoRe salvami te
+
+        System.out.println("Mostra informazioni sui biglietti non implementata.");
+    }
+
+    private static void showSubscriptionInfo(Scanner scanner, EntityManager em) {
+        // AldoRe salvami te
+        System.out.println("Mostra informazioni sugli abbonamenti non implementata.");
+    }
+
+    private static void verifySubscriptionValidity(Scanner scanner, EntityManager em) {
+        System.out.print("Inserisci il numero della tessera da verificare: ");
+        String numeroTessera = scanner.nextLine();
+
+        // AldoRe salvami te
+        System.out.println("Verifica della validità dell'abbonamento non implementata.");
+    }
+    private static void showUserMenu(Scanner scanner, EntityManager em) {
+        int choice;
+
+        do {
+            System.out.println("Menu Utente Comune:");
+            System.out.println("1. Acquista un biglietto per viaggiare con la nostra compagnia su tram ed autobus su qualsiasi linea");
+            System.out.println("2. Acquista un abbonamento");
+            System.out.println("0. Esci");
+            System.out.print("Scegli un'opzione: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    buyTicket(scanner, em);
+                    break;
+                case 2:
+                    buySubscription(scanner, em);
+                    break;
+                case 0:
+                    System.out.println("Uscita dal sistema.");
+                    break;
+                default:
+                    System.out.println("Opzione non valida. Riprova.");
+            }
+        } while (choice != 0);
+    }
+    private static void addMezzo(Scanner scanner, EntityManager em) {
+        System.out.print("Inserisci la capienza del mezzo: ");
+        int capienza = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Inserisci il codice del mezzo (es. 'c 18'): ");
+        String codice = scanner.nextLine();
+
+        System.out.print("Inserisci il tipo di mezzo (autobus/tram): ");
+        String tipoMezzo = scanner.nextLine();
+
+        Mezzi nuovoMezzo;
+        if (tipoMezzo.equalsIgnoreCase("autobus")) {
+            nuovoMezzo = new Autobus(capienza, codice);
+        } else {
+            nuovoMezzo = new Tram(capienza, codice);
+        }
+
+        // Persisto il nuovo mezzo nel database
+        em.getTransaction().begin();
+        em.persist(nuovoMezzo);
+        em.getTransaction().commit();
+
+        System.out.println("Nuovo mezzo aggiunto con successo!");
+    }
+
+
+
+    private static void buyTicket(Scanner scanner, EntityManager em) {
+
+        LocalDate dataEmissione = LocalDate.now();
+
+
+        Biglietto nuovoBiglietto = new Biglietto(dataEmissione, null);
+
+        em.getTransaction().begin();
+        em.persist(nuovoBiglietto);
+        em.getTransaction().commit();
+
+        System.out.println("Biglietto acquistato con successo!");
+    }
+    private static void buySubscription(Scanner scanner, EntityManager em) {
+
+        LocalDate dataEmissione = LocalDate.now();
+
+        System.out.print("Inserisci il tipo di abbonamento (settimanale/mensile): ");
+        String tipoAbbonamentoInput = scanner.nextLine();
+        TipoAbbonamento tipoAbbonamento;
+
+
+        if (tipoAbbonamentoInput.equalsIgnoreCase("settimanale")) {
+            tipoAbbonamento = TipoAbbonamento.SETTIMANALE;
+        } else if (tipoAbbonamentoInput.equalsIgnoreCase("mensile")) {
+            tipoAbbonamento = TipoAbbonamento.MENSILE;
+        } else {
+            System.out.println("Tipo di abbonamento non valido. Riprova.");
+            return;
+        }
+
+
+        System.out.print("Hai già una tessera? (s/n): ");
+        String haTessera = scanner.nextLine();
+
+        Tessera tessera;
+        if (haTessera.equalsIgnoreCase("s")) {
+            // Richiedere il numero della tessera
+            System.out.print("Inserisci il numero della tessera: ");
+            long numeroTessera = scanner.nextLong();
+            tessera = em.find(Tessera.class, numeroTessera);
+            if (tessera == null) {
+                System.out.println("Tessera non trovata. Creazione nuova tessera.");
+                tessera = new Tessera(); //  ID generato automaticamente
+                em.getTransaction().begin();
+                em.persist(tessera);
+                em.getTransaction().commit();
+                System.out.println("Nuova tessera creata con ID: " + tessera.getId());
+            }
+        } else {
+
+            tessera = new Tessera(); // ID generato automaticamente
+            em.getTransaction().begin();
+            em.persist(tessera);
+            em.getTransaction().commit();
+            System.out.println("Nuova tessera creata con ID: " + tessera.getId());
+        }
+
+
+        Abbonamento nuovoAbbonamento = new Abbonamento(dataEmissione, null, tessera, tipoAbbonamento);
+        em.getTransaction().begin();
+        em.persist(nuovoAbbonamento);
+        em.getTransaction().commit();
+
+        System.out.println("Abbonamento acquistato con successo!");
+    }
+
+
+
+
+}
+
+
+
+       /* Mezzi nuovoMezzo = new Autobus(capienza, codiceMezzo);
         MezziDAO mezziDAO = new MezziDAO(em);
+
         TesseraDao tessDao = new TesseraDao(em);
         UtenteDao utenteDao = new UtenteDao(em);
         PassDao passDao = new PassDao(em);
@@ -183,7 +441,7 @@ public class Application {
 
 
         //Secondo query test, per raggruppamento
-        System.out.println("\n-----------------------------");
+       /* System.out.println("\n-----------------------------");
         LocalDate dataInizio = LocalDate.of(2002, 3, 3);
         LocalDate dataFine = LocalDate.of(2025, 3, 3);
         List<Object[]> testQuery = passDao.numeroPassPerPeriodoEPuntoEmissione(dataInizio, dataFine);
@@ -218,4 +476,4 @@ public class Application {
 
     }
 
-}
+}*/
