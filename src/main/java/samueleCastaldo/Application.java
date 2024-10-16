@@ -7,6 +7,7 @@ import samueleCastaldo.dao.*;
 import samueleCastaldo.entities.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Application {
@@ -27,6 +28,7 @@ public class Application {
         StatusDao statDao = new StatusDao(em);
         VidimatoDao vidDao = new VidimatoDao(em);
         TrattaDAO tratDAO = new TrattaDAO(em);
+        ViaggioDAO viaggioDAO = new ViaggioDAO(em);
 
         Utente u1 = new Utente("Aldo", "Baglio");
         Utente u2 = new Utente("Giovanni", "Neri");
@@ -87,6 +89,8 @@ public class Application {
         Vidimato vidi5 = new Vidimato(big5, LocalDate.now(), stat4);
         Vidimato vidi6 = new Vidimato(big6, LocalDate.now(), stat4);
 
+        Viaggio viaggio1 = new Viaggio(120, LocalDateTime.of(2024, 10, 15, 15, 10), stat2 );
+
 
         utenteDao.save(u1);
         utenteDao.save(u2);
@@ -144,6 +148,8 @@ public class Application {
         vidDao.save(vidi4);
         vidDao.save(vidi5);
         vidDao.save(vidi6);
+
+        viaggioDAO.save(viaggio1);
 
 
         //prima query test

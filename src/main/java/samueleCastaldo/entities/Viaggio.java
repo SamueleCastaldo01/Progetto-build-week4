@@ -3,6 +3,7 @@ package samueleCastaldo.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "viaggi")
@@ -13,12 +14,12 @@ public class Viaggio {
     @Column(nullable = false)
     private int tempo_effettivo;
     @Column(nullable = false)
-    private LocalDate data_partenza;
+    private LocalDateTime data_partenza;
     @ManyToOne
     @JoinColumn(name = "id_servizio", referencedColumnName = "id" )
     private InServizio servizio;
 
-    public Viaggio(int tempo_effettivo, LocalDate data_partenza, InServizio servizio) {
+    public Viaggio(int tempo_effettivo, LocalDateTime data_partenza, InServizio servizio) {
         this.tempo_effettivo = tempo_effettivo;
         this.data_partenza = data_partenza;
         this.servizio = servizio;
@@ -38,11 +39,11 @@ public class Viaggio {
         this.tempo_effettivo = tempo_effettivo;
     }
 
-    public LocalDate getData_partenza() {
+    public LocalDateTime getData_partenza() {
         return data_partenza;
     }
 
-    public void setData_partenza(LocalDate data_partenza) {
+    public void setData_partenza(LocalDateTime data_partenza) {
         this.data_partenza = data_partenza;
     }
 
