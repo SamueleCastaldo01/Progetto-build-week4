@@ -40,12 +40,20 @@ public class ViaggioDAO {
     }
 
     public List<Integer> tempoEffettivoByIdMezzo(long idMezzo) {
-        TypedQuery<Integer> query = em2.createQuery("SELECT v.tempo_effettivo FROM Viaggio v WHERE v.mezzo.id = : idMezzo", Integer.class);
+        TypedQuery<Integer> query = em2.createQuery("SELECT v.tempo_effettivo FROM Viaggio v WHERE v.mezzo.id = :idMezzo", Integer.class);
         query.setParameter("idMezzo", idMezzo);
         List<Integer> result = query.getResultList();
         for (Integer r : result) {
             System.out.println("Tempo Effettivo: " + r + " minuti");
         }
+        return result;
+    }
+
+    public double mediaTempoEffettivoByMezzo(long idMezzo) {
+        TypedQuery<Double> query = em2.createQuery("SELECT AVG(v.tempo_effettivo)  FROM Viaggio v WHERE v.mezzo.id = :idMezzo", Double.class);
+        query.setParameter("idMezzo", idMezzo);
+        double result = query.getSingleResult();
+        System.out.println("La media dei viaggi: " +result + " min");
         return result;
     }
 

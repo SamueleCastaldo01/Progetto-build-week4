@@ -209,6 +209,10 @@ public class Application {
         //sesta query, lista di tempi effettivi da parte di un mezzo, by idMezzo
         List<Integer> resultTEffettiviMezzo = viaggioDAO.tempoEffettivoByIdMezzo(1505);
 
+        //Settima query, mediaTempoEffettivoByMezzo
+        double resultMediaTempoEffettivo = viaggioDAO.mediaTempoEffettivoByMezzo(1505);
+
+
         emf.close();
         em.close();
 
