@@ -7,6 +7,8 @@ import samueleCastaldo.entities.Biglietto;
 import samueleCastaldo.entities.Viaggio;
 import samueleCastaldo.exceptions.NotFoundException;
 
+import java.util.List;
+
 public class ViaggioDAO {
     private final EntityManager em2;
 
@@ -34,6 +36,16 @@ public class ViaggioDAO {
         query.setParameter("idMezzo", idMezzo);
         long result = query.getSingleResult();
         System.out.println("conteggio: " + result);
+        return result;
+    }
+
+    public List<Integer> tempoEffettivoByIdMezzo(long idMezzo) {
+        TypedQuery<Integer> query = em2.createQuery("SELECT v.tempo_effettivo FROM Viaggio v WHERE v.mezzo.id = : idMezzo", Integer.class);
+        query.setParameter("idMezzo", idMezzo);
+        List<Integer> result = query.getResultList();
+        for (Integer r : result) {
+            System.out.println("Tempo Effettivo: " + r + " minuti");
+        }
         return result;
     }
 

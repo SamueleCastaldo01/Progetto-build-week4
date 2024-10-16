@@ -8,6 +8,7 @@ import samueleCastaldo.entities.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 public class Application {
@@ -203,7 +204,10 @@ public class Application {
         vidDao.getBigliettiVidimatiByPeriodo(LocalDate.of(2002, 10, 15), LocalDate.of(2025, 10, 10));
 
         //quinta query, sezione 3. Contatore c per n viaggi mezzo/tratta; input idMezzo
-        long result = viaggioDAO.countMezzoPercorreTratta(1505);
+        long resultCountPT = viaggioDAO.countMezzoPercorreTratta(1505);
+
+        //sesta query, lista di tempi effettivi da parte di un mezzo, by idMezzo
+        List<Integer> resultTEffettiviMezzo = viaggioDAO.tempoEffettivoByIdMezzo(1505);
 
         emf.close();
         em.close();
