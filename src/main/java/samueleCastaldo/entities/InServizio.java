@@ -1,22 +1,27 @@
 package samueleCastaldo.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "in_servizio")
-
 public class InServizio extends Status {
     //protected Tratta tratta;
+    @ManyToOne
+    @JoinColumn(name = "id_tratta", referencedColumnName = "id")
+    private Tratte tratta;
 
 
     public InServizio() {
     }
 
-    public InServizio(LocalDate dataInizio, LocalDate dataFine, Mezzi mezzo) {
+    public InServizio(LocalDate dataFine, LocalDate dataInizio, Mezzi mezzo, Tratte tratta) {
         super(dataFine, dataInizio, mezzo);
+        this.tratta = tratta;
     }
 
     @Override

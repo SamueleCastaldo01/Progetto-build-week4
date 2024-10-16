@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import samueleCastaldo.dao.*;
 import samueleCastaldo.entities.*;
-import samueleCastaldo.exceptions.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,7 +26,7 @@ public class Application {
         EmBigliettiDao emBigliettiDao = new EmBigliettiDao(em);
         StatusDao statDao = new StatusDao(em);
         VidimatoDao vidDao = new VidimatoDao(em);
-
+        TrattaDAO tratDAO = new TrattaDAO(em);
 
         Utente u1 = new Utente("Aldo", "Baglio");
         Utente u2 = new Utente("Giovanni", "Neri");
@@ -62,13 +61,23 @@ public class Application {
         Mezzi a3 = new Autobus(50, "C9");
         Mezzi tram3 = new Tram(30, "D9");
 
+        Tratte tratta1 = new Tratte("Napoli", "Roma", 360);
+        Tratte tratta2 = new Tratte("Milano", "Torino", 220);
+        Tratte tratta3 = new Tratte("Parma", "Pisa", 180);
+        Tratte tratta4 = new Tratte("Roma", "Napoli", 360);
+        Tratte tratta5 = new Tratte("Torino", "Venezia", 100);
+        Tratte tratta6 = new Tratte("Torino", "Milano", 220);
+        Tratte tratta7 = new Tratte("Pisa", "Parma", 180);
+        Tratte tratta8 = new Tratte("Bergamo", "Roma", 360);
+
+
         InManutenzione stat1 = new InManutenzione(LocalDate.of(2023, 01, 10), LocalDate.of(2024, 01, 10), a1);
-        InServizio stat2 = new InServizio(LocalDate.of(2022, 01, 10), LocalDate.now(), tram1);
-        InServizio stat6 = new InServizio(LocalDate.of(2024, 01, 10), LocalDate.now(), tram1);
-        InServizio stat7 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), tram1);
+        InServizio stat2 = new InServizio(LocalDate.of(2022, 01, 10), LocalDate.now(), tram1, tratta1);
+        InServizio stat6 = new InServizio(LocalDate.of(2024, 01, 10), LocalDate.now(), tram1, tratta4);
+        InServizio stat7 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), tram1, tratta1);
         InManutenzione stat8 = new InManutenzione(LocalDate.of(2002, 2, 2), LocalDate.of(2003, 2, 2), tram1);
-        InServizio stat3 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), tram2);
-        InServizio stat4 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), a2);
+        InServizio stat3 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), tram2, tratta2);
+        InServizio stat4 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), a2, tratta6);
         InManutenzione stat5 = new InManutenzione(LocalDate.of(2024, 01, 11), LocalDate.now(), a1);
 
         Vidimato vidi1 = new Vidimato(big1, LocalDate.now(), stat2);
@@ -79,7 +88,6 @@ public class Application {
         Vidimato vidi6 = new Vidimato(big6, LocalDate.now(), stat4);
 
 
-        /*
         utenteDao.save(u1);
         utenteDao.save(u2);
         utenteDao.save(u3);
@@ -105,13 +113,22 @@ public class Application {
         passDao.save(abb3);
         passDao.save(abb4);
 
+        tratDAO.save(tratta1);
+        tratDAO.save(tratta2);
+        tratDAO.save(tratta3);
+        tratDAO.save(tratta4);
+        tratDAO.save(tratta5);
+        tratDAO.save(tratta6);
+        tratDAO.save(tratta7);
+        tratDAO.save(tratta8);
+
         mezziDAO.save(a1);
         mezziDAO.save(a2);
         mezziDAO.save(a3);
         mezziDAO.save(tram1);
         mezziDAO.save(tram2);
         mezziDAO.save(tram3);
-        
+
         statDao.save(stat1);
         statDao.save(stat2);
         statDao.save(stat3);
@@ -127,7 +144,6 @@ public class Application {
         vidDao.save(vidi4);
         vidDao.save(vidi5);
         vidDao.save(vidi6);
-        */
 
 
         //prima query test
