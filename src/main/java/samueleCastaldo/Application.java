@@ -79,7 +79,7 @@ public class Application {
         Vidimato vidi6 = new Vidimato(big6, LocalDate.now(), stat4);
 
 
-    /*
+        /*
         utenteDao.save(u1);
         utenteDao.save(u2);
         utenteDao.save(u3);
