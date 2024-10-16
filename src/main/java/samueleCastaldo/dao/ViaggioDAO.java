@@ -30,7 +30,7 @@ public class ViaggioDAO {
     }
 
     public long countMezzoPercorreTratta(long idMezzo) {
-        TypedQuery<Long> query = em2.createQuery("SELECT COUNT(v) FROM Viaggio v WHERE v.servizio.mezzo.id = :idMezzo", Long.class);
+        TypedQuery<Long> query = em2.createQuery("SELECT COUNT(v) FROM Viaggio v WHERE v.mezzo.id = :idMezzo", Long.class);
         query.setParameter("idMezzo", idMezzo);
         long result = query.getSingleResult();
         System.out.println("conteggio: " + result);
