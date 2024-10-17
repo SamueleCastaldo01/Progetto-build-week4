@@ -127,35 +127,30 @@ public class Application {
                 case 1:
                     addMezzo(scanner, em);
                     break;
-
                 case 2:
                     addTratta(scanner, em);
                     break;
-
                 case 3:
                     addEmBiglietto(scanner, em);
                     break;
-
                 case 4:
                     addViaggio(scanner, em);
                     break;
-
                 case 5:
                     storicoStatusMezzo(scanner, em);
                     break;
-
                 case 6:
                     validazioneUtenteAbb(scanner, em);
                     break;
-
                 case 7:
                     countBigliettiVidimatiByPeriod(scanner,em);
                     break;
-
+                case 8:
+                    tempoMedioDiPercorrezaMezzo(scanner,em);
+                    break;
                 case 10:
                     checkVenditeBiglietto(scanner, em);
                     break;
-
 
                 case 0:
                     return;
@@ -394,6 +389,17 @@ public class Application {
     private static void countBigliettiVidimatiByPeriod (Scanner scanner,EntityManager em) {
         VidimatoDao vidDao = new VidimatoDao(em);
         vidDao.getBigliettiVidimatiByPeriodo(LocalDate.of(2002, 10, 15), LocalDate.of(2025, 10, 10));
+    }
+
+    private static void tempoMedioDiPercorrezaMezzo (Scanner scanner,EntityManager em) {
+        ViaggioDAO viaggioDAO = new ViaggioDAO(em);
+        MezziDAO mezziDAO = new MezziDAO(em);
+        //lista mezzi
+        mezziDAO.listaMezzi();
+        System.out.print("Seleziona l'id del mezzo: ");
+        long idMezzo = Long.parseLong(scanner.nextLine());
+        double resultMediaTempoEffettivo = viaggioDAO.mediaTempoEffettivoByMezzo(idMezzo);
+        System.out.println("La media tratta del mezzo è: "+ resultMediaTempoEffettivo);
     }
 
 
