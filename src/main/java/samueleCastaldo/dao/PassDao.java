@@ -23,6 +23,7 @@ public class PassDao {
         transiction.begin();
         em2.persist(pass);
         transiction.commit();
+        System.out.println("Il biglietto con id: " +pass.getId() + " è stato creato");
     }
 
     public Pass findById(long id) {
@@ -110,6 +111,15 @@ public class PassDao {
         List<Abbonamento> result = query.getResultList();
         System.out.println("\nLista Abbonamenti per utente selezionato");
         for(Abbonamento u : result) {
+            System.out.println(u);
+        }
+    }
+
+    public void listaBiglietti() {
+        TypedQuery<Biglietto> query = em2.createQuery("SELECT b FROM Biglietto b", Biglietto.class);
+        List<Biglietto> result = query.getResultList();
+        System.out.println("\nLista Biglietti");
+        for(Biglietto u : result) {
             System.out.println(u);
         }
     }

@@ -76,12 +76,12 @@ public class PopolareTabelle {
 
 
         InManutenzione stat1 = new InManutenzione(LocalDate.of(2023, 01, 10), LocalDate.of(2024, 01, 10), a1);
-        InServizio stat2 = new InServizio(LocalDate.of(2022, 01, 10), LocalDate.now(), tram1, tratta1);
-        InServizio stat6 = new InServizio(LocalDate.of(2024, 01, 10), LocalDate.now(), tram1, tratta4);
+        InServizio stat2 = new InServizio(null, LocalDate.now(), tram1, tratta1);
+        InServizio stat6 = new InServizio(null, LocalDate.now(), tram1, tratta4);
         InServizio stat7 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), tram1, tratta1);
         InManutenzione stat8 = new InManutenzione(LocalDate.of(2002, 2, 2), LocalDate.of(2003, 2, 2), tram1);
         InServizio stat3 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), tram2, tratta2);
-        InServizio stat4 = new InServizio(LocalDate.of(2021, 01, 10), LocalDate.now(), a2, tratta6);
+        InServizio stat4 = new InServizio(null, LocalDate.now(), a2, tratta6);
         InManutenzione stat5 = new InManutenzione(LocalDate.of(2024, 01, 11), LocalDate.now(), a1);
 
         Vidimato vidi1 = new Vidimato(big1, LocalDate.now(), stat2);

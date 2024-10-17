@@ -3,10 +3,7 @@ package samueleCastaldo.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
-import samueleCastaldo.entities.EmissioneBiglietti;
-import samueleCastaldo.entities.InManutenzione;
-import samueleCastaldo.entities.InServizio;
-import samueleCastaldo.entities.Status;
+import samueleCastaldo.entities.*;
 import samueleCastaldo.exceptions.NotFoundException;
 
 import java.util.List;
@@ -29,6 +26,12 @@ public class StatusDao {
 
     public Status findById(long id) {
         Status found = em2.find(Status.class, id);
+        if (found == null) throw new NotFoundException(id);
+        return found;
+    }
+
+    public InServizio findInServizioById(long id) {
+        InServizio found = em2.find(InServizio.class, id);
         if (found == null) throw new NotFoundException(id);
         return found;
     }
@@ -62,6 +65,15 @@ public class StatusDao {
             System.out.println(r);
         }
         return result;
+    }
+
+    public void listaInServizioAttuali() {
+        TypedQuery<InServizio> query = em2.createQuery("SELECT is FROM InServizio is WHERE is.dataFine IS NULL", InServizio.class);
+        List<InServizio> result = query.getResultList();
+        System.out.println("\nLista Mezzi attualmente in servizio");
+        for(InServizio u : result) {
+            System.out.println(u);
+        }
     }
 
 }

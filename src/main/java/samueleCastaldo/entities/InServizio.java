@@ -27,9 +27,9 @@ public class InServizio extends Status {
     @Override
     public String toString() {
         return "InServizio{" +
-                "dataFine=" + dataFine +
-                ", dataInizio=" + dataInizio +
                 ", id=" + id +
+                ", dataInizio=" + dataInizio +
+                ", dataFine=" + dataFine +
                 ", mezzo=" + mezzo +
                 '}';
     }

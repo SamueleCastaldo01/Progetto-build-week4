@@ -1,8 +1,6 @@
 package samueleCastaldo.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 @Entity
@@ -17,6 +15,7 @@ public class Biglietto extends Pass {
 
     public Biglietto(LocalDate dataEmissione, EmissioneBiglietti emissioneBiglietti) {
         super(dataEmissione, emissioneBiglietti);
+
     }
 
     @Override

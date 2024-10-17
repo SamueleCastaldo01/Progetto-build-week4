@@ -22,8 +22,7 @@ public class VidimatoDao {
         em2.persist(newVidimato);
         tx.commit();
         PassDao passDao = new PassDao(em2);
-        //passDao.deleteBiglietto(newVidimato.getBiglietto());
-        System.out.println("Vidimato creato: " + newVidimato + " saved");
+        System.out.println("Il biglietto è stato vidimato con successo: " + newVidimato + " saved");
     }
 
     public List<Vidimato> getBigliettiVidimatiByMezzo(long idMezzo) {

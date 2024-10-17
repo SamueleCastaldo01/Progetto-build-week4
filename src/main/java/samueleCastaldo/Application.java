@@ -240,6 +240,9 @@ public class Application {
                 case 4:
                     dettagliTessera(scanner, em, indiceUtenteSelezionato);
                     break;
+                case 5:
+                    vidimaBiglietto(scanner, em);
+                    break;
                 case 0:
                     exitMenu = true;
                     break;
@@ -331,6 +334,29 @@ public class Application {
     private static void dettagliTessera(Scanner scanner, EntityManager em, long idUtente) {
         TesseraDao tessDao = new TesseraDao(em);
         tessDao.dettagliTessera(idUtente);
+    }
+
+    private static void vidimaBiglietto(Scanner scanner, EntityManager em) {
+        //Deve comparire la lista dei biglietti, e selezionare (controllo che non sia già vidimato)
+        PassDao passDao = new PassDao(em);
+        StatusDao satDao = new StatusDao(em);
+        VidimatoDao vidDao = new VidimatoDao(em);
+
+        passDao.listaBiglietti();
+        System.out.print("Seleziona l'id del Biglietto: ");
+        long idBigliettoSelezionato = scanner.nextLong();
+
+        //compare la lista in servizio attuale, per selezionare il mezzo
+        satDao.listaInServizioAttuali();
+        System.out.print("Seleziona l'id del mezzo in servizio: ");
+        long idServizioSelezionato = scanner.nextLong();
+
+        //dobbiamo prenderci sia il biglietto che inServizio
+        InServizio inServizio = satDao.findInServizioById(idServizioSelezionato);
+        Biglietto biglietto = passDao.findByIdBiglietto(idBigliettoSelezionato);
+        //facciamo vidimare il biglietto
+        Vidimato vid1 = new Vidimato(biglietto, LocalDate.now(), inServizio);
+        vidDao.save(vid1);
     }
 
 
