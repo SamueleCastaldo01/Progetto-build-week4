@@ -104,4 +104,21 @@ public class PassDao {
         }
         return false;
     }
+
+    public void listaAbbonamenti(long idUtente) {
+        TypedQuery<Abbonamento> query = em2.createQuery("SELECT e FROM Abbonamento e WHERE e.tessera.utente.id = :idUtente", Abbonamento.class);
+        query.setParameter("idUtente", idUtente);
+        List<Abbonamento> result = query.getResultList();
+        System.out.println("\nLista Abbonamenti per utente selezionato");
+        for(Abbonamento u : result) {
+            System.out.println(u);
+        }
+    }
+
+    public Abbonamento dettagliAbbonamento(long id) {
+        Abbonamento found = em2.find(Abbonamento.class, id);
+        if (found == null) throw new NotFoundException(id);
+        System.out.println("\nDettagli Abbonamento: " +found);
+        return found;
+    }
 }

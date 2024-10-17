@@ -50,6 +50,14 @@ public class Abbonamento extends Pass {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Abbonamento{" +
+                ", id=" + id +
+                ", tipoAbbonamento=" + tipoAbbonamento +
+                ", dataScadenza=" + dataScadenza +
+                ", emissioneBiglietti=" + emissioneBiglietti +
+                ", dataEmissione=" + dataEmissione +
+                '}';
+    }
 }

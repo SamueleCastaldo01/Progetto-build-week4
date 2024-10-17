@@ -209,7 +209,7 @@ public class Application {
             System.out.println();
             System.out.println("Menu Utente Comune:");
             System.out.println("1. Acquista un biglietto per viaggiare");
-            System.out.println("2. Acquista un abbonamento (fornito di tessera)");
+            System.out.println("//2. Acquista un abbonamento (fornito di tessera)");
             System.out.println("3. Visualizzazione abbonamenti selezionabili");
             System.out.println("4. Visualizzazione dettagli tessera");
             System.out.println("5. Vidima biglietto");
@@ -233,6 +233,9 @@ public class Application {
                     break;
                 case 2:
                     buySubscription(scanner, em);
+                    break;
+                case 3:
+                    visualizzaAbbonamenti(scanner, em, indiceUtenteSelezionato);
                     break;
                 case 0:
                     exitMenu = true;
@@ -293,7 +296,6 @@ public class Application {
     }
 
 
-
     private static void compraBiglietto(Scanner scanner, EntityManager em) {
         //deve comparire prima la lista dei distributori
         EmBigliettiDao embiDao = new EmBigliettiDao(em);
@@ -310,6 +312,17 @@ public class Application {
         passDao.save(nuovoBiglietto);
 
         System.out.println("Biglietto acquistato con successo!");
+    }
+
+    private static void visualizzaAbbonamenti (Scanner scanner, EntityManager em, long idUtente) {
+        //deve comparire prima la lista dei distributori
+        PassDao passDao = new PassDao(em);
+        //qui compare la lista
+        passDao.listaAbbonamenti(idUtente);
+        //selezione distributore
+        System.out.print("Seleziona Abbonamento tramite id: ");
+        long idSelezionato = scanner.nextLong();
+            passDao.dettagliAbbonamento(idSelezionato);
     }
 
 
