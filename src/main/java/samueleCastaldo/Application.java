@@ -7,11 +7,9 @@ import samueleCastaldo.dao.*;
 import samueleCastaldo.entities.*;
 import samueleCastaldo.exceptions.NotFoundException;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Iterator;
 import java.util.List;
 
 public class Application {
