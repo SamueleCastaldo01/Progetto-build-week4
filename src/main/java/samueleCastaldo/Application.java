@@ -145,11 +145,14 @@ public class Application {
                     storicoStatusMezzo(scanner, em);
                     break;
 
+                case 6:
+                    validazioneUtenteAbb(scanner, em);
+                    break;
+
                 case 10:
                     checkVenditeBiglietto(scanner, em);
                     break;
 
-                case 6:
 
                 case 0:
                     return;
@@ -363,6 +366,28 @@ public class Application {
         statDao.getPeriodoDiManutenzioneServizioByMezzo(idMezzo);
 
     }
+
+    private static void validazioneUtenteAbb(Scanner scanner, EntityManager em) {
+        //Cmparire lista utente id utente
+        UtenteDao utDao = new UtenteDao(em);
+        PassDao passDao = new PassDao(em);
+        System.out.println("Lista utenti");
+        utDao.listaUtenti();
+        System.out.print("Inserisci l'indice utente da controllare: ");
+        long utenteId = Long.parseLong(scanner.nextLine());
+
+        //Lista abb ed id Abb
+        System.out.println("Lista Abbonamenti da controllare la validità appartenenti all' utente scelto");
+        passDao.listaAllAbbonamenti();
+        System.out.print("Inserisci l'indice dell' abbonamneto da verificare la validità: ");
+        long abbId = Long.parseLong(scanner.nextLine());
+        //boolean checkabb1 = passDao.checkAbbByUtente(52, 1);
+        boolean checkAbb = passDao.checkAbbByUtente(utenteId, abbId);
+        if (checkAbb) {
+            System.out.println("L'abbonamento passsa il controllo");
+        } else System.out.println("L'abbonamento non passsa il controllo");
+    }
+
 
     private static void checkVenditeBiglietto(Scanner scanner, EntityManager em) {
 

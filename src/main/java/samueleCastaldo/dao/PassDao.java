@@ -115,6 +115,15 @@ public class PassDao {
         }
     }
 
+    public void listaAllAbbonamenti() {
+        TypedQuery<Abbonamento> query = em2.createQuery("SELECT e FROM Abbonamento e ", Abbonamento.class);
+        List<Abbonamento> result = query.getResultList();
+        System.out.println("\nLista Abbonamenti per utente selezionato");
+        for(Abbonamento u : result) {
+            System.out.println(u);
+        }
+    }
+
     public void listaBiglietti() {
         TypedQuery<Biglietto> query = em2.createQuery("SELECT b FROM Biglietto b", Biglietto.class);
         List<Biglietto> result = query.getResultList();
