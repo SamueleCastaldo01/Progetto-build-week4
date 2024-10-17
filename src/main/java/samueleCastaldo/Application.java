@@ -104,7 +104,8 @@ public class Application {
             System.out.println("1. Aggiungi un nuovo mezzo");
             System.out.println("2. Aggiungi tratta");
             System.out.println("3. Crea emissione Biglietto");
-            System.out.println("4. Crea Viaggio");;
+            System.out.println("4. Crea Viaggio");
+            ;
             System.out.println("5. Storico mezzo servizio manutenzione by mezzo");
             System.out.println("6. Validazione match abbonamento utente");
             System.out.println("7. Biglietti vidimati tramite periodo di tempo");
@@ -138,6 +139,10 @@ public class Application {
 
                 case 4:
                     addViaggio(scanner, em);
+                    break;
+
+                case 5:
+                    storicoStatusMezzo(scanner, em);
                     break;
 
                 case 10:
@@ -347,10 +352,16 @@ public class Application {
 
     }
 
-    private static void addViaggio(Scanner scanner, EntityManager em) {
-        System.out.println("Inserisci il tempo effettivo");
-        System.out.println("Data di partenza");
-        System.out.println("In servizio");
+    private static void storicoStatusMezzo(Scanner scanner, EntityManager em) {
+        //deve comparire la lista dei mezzi
+        MezziDAO mezziDAO = new MezziDAO(em);
+        StatusDao statDao = new StatusDao(em);
+        mezziDAO.listaMezzi();
+        System.out.print("Seleziona indice del mezzo: ");
+        long idMezzo = Integer.parseInt(scanner.nextLine());
+        //poi deve essere seleziopnaro
+        statDao.getPeriodoDiManutenzioneServizioByMezzo(idMezzo);
+
     }
 
     private static void checkVenditeBiglietto(Scanner scanner, EntityManager em) {
@@ -367,6 +378,12 @@ public class Application {
 
             System.out.println("Punto emissione: " + emissioneBiglietti + ", Numero di biglietti e abbonamenti: " + passCount);
         }
+    }
+
+    private static void addViaggio(Scanner scanner, EntityManager em) {
+        System.out.println("Inserisci il tempo effettivo");
+        System.out.println("Data di partenza");
+        System.out.println("In servizio");
     }
 
     private static void compraBiglietto(Scanner scanner, EntityManager em) {

@@ -1,12 +1,11 @@
 package samueleCastaldo.dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Persistence;
 import samueleCastaldo.entities.Mezzi;
 import samueleCastaldo.exceptions.NotFoundException;
+
+import java.util.List;
 
 
 public class MezziDAO {
@@ -27,6 +26,16 @@ public class MezziDAO {
             Mezzi mezzotrovato = em.find(Mezzi.class, id);
             if (mezzotrovato == null) throw new NotFoundException(id);
             return mezzotrovato;
+    }
+
+    public List<Mezzi> listaMezzi() {
+        TypedQuery<Mezzi> query = em.createQuery("SELECT m FROM Mezzi m", Mezzi.class);
+        List<Mezzi> result = query.getResultList();
+        System.out.println("\nLista mezzi");
+        for (Mezzi m : result) {
+            System.out.println(m);
+        }
+        return result;
     }
 
         }

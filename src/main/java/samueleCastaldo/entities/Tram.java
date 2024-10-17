@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 
 public class Tram extends Mezzi {
 
-    @Id
-    private long id;
 
     public Tram() {
         super();
