@@ -2,9 +2,13 @@ package samueleCastaldo.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import samueleCastaldo.entities.Abbonamento;
 import samueleCastaldo.entities.Tessera;
 import samueleCastaldo.entities.Utente;
 import samueleCastaldo.exceptions.NotFoundException;
+
+import java.util.List;
 
 public class TesseraDao {
     private final EntityManager em2;
@@ -27,4 +31,13 @@ public class TesseraDao {
         if (found == null) throw new NotFoundException(id);
         return found;
     }
+
+    public void dettagliTessera(long idUtente) {
+        TypedQuery<Tessera> query = em2.createQuery("SELECT t FROM Tessera t WHERE t.utente.id = :idUtente", Tessera.class);
+        query.setParameter("idUtente", idUtente);
+        Tessera result = query.getSingleResult();
+        System.out.println("dettagli tessera: " + result);
+    }
+
+
 }

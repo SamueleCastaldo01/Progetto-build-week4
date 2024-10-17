@@ -207,7 +207,7 @@ public class Application {
         while(!exitMenu) {
             scanner.nextLine();
             System.out.println();
-            System.out.println("Menu Utente Comune:");
+            System.out.println("Menu Utente:");
             System.out.println("1. Acquista un biglietto per viaggiare");
             System.out.println("//2. Acquista un abbonamento (fornito di tessera)");
             System.out.println("3. Visualizzazione abbonamenti selezionabili");
@@ -236,6 +236,9 @@ public class Application {
                     break;
                 case 3:
                     visualizzaAbbonamenti(scanner, em, indiceUtenteSelezionato);
+                    break;
+                case 4:
+                    dettagliTessera(scanner, em, indiceUtenteSelezionato);
                     break;
                 case 0:
                     exitMenu = true;
@@ -323,6 +326,11 @@ public class Application {
         System.out.print("Seleziona Abbonamento tramite id: ");
         long idSelezionato = scanner.nextLong();
             passDao.dettagliAbbonamento(idSelezionato);
+    }
+
+    private static void dettagliTessera(Scanner scanner, EntityManager em, long idUtente) {
+        TesseraDao tessDao = new TesseraDao(em);
+        tessDao.dettagliTessera(idUtente);
     }
 
 
