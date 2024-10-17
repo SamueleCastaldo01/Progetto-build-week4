@@ -105,7 +105,6 @@ public class Application {
             System.out.println("2. Aggiungi tratta");
             System.out.println("3. Crea emissione Biglietto");
             System.out.println("4. Crea Viaggio");
-            ;
             System.out.println("5. Storico mezzo servizio manutenzione by mezzo");
             System.out.println("6. Validazione match abbonamento utente");
             System.out.println("7. Biglietti vidimati tramite periodo di tempo");
@@ -147,6 +146,10 @@ public class Application {
 
                 case 6:
                     validazioneUtenteAbb(scanner, em);
+                    break;
+
+                case 7:
+                    countBigliettiVidimatiByPeriod(scanner,em);
                     break;
 
                 case 10:
@@ -386,6 +389,11 @@ public class Application {
         if (checkAbb) {
             System.out.println("L'abbonamento passsa il controllo");
         } else System.out.println("L'abbonamento non passsa il controllo");
+    }
+
+    private static void countBigliettiVidimatiByPeriod (Scanner scanner,EntityManager em) {
+        VidimatoDao vidDao = new VidimatoDao(em);
+        vidDao.getBigliettiVidimatiByPeriodo(LocalDate.of(2002, 10, 15), LocalDate.of(2025, 10, 10));
     }
 
 
