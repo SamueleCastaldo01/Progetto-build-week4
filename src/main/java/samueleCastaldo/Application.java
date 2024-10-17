@@ -202,7 +202,6 @@ public class Application {
         }catch (NotFoundException ex){
             exitMenu = true;
             System.out.println(ex.getMessage());
-
         }
 
         while(!exitMenu) {
