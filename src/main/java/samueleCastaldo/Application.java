@@ -148,13 +148,16 @@ public class Application {
                 case 8:
                     tempoMedioDiPercorrezaMezzo(scanner,em);
                     break;
+                case 9:
+                    countViaggioByMezzo(scanner,em);
+                    break;
                 case 10:
                     checkVenditeBiglietto(scanner, em);
                     break;
 
                 case 0:
                     return;
-                case 9:
+                case 12:
                     exitProgram = true;
                     System.out.println("Chiusura del programma in corso...");
                     return;
@@ -400,6 +403,17 @@ public class Application {
         long idMezzo = Long.parseLong(scanner.nextLine());
         double resultMediaTempoEffettivo = viaggioDAO.mediaTempoEffettivoByMezzo(idMezzo);
         System.out.println("La media tratta del mezzo è: "+ resultMediaTempoEffettivo);
+    }
+
+    private static void countViaggioByMezzo (Scanner scanner,EntityManager em) {
+        ViaggioDAO viaggioDAO = new ViaggioDAO(em);
+        MezziDAO mezziDAO = new MezziDAO(em);
+        //lista mezzi
+        mezziDAO.listaMezzi();
+        System.out.print("Seleziona l'id del mezzo: ");
+        long idMezzo = Long.parseLong(scanner.nextLine());
+        long resultCountPT = viaggioDAO.countMezzoPercorreTratta(idMezzo);
+        System.out.println("Il conteggio dei viaggi del mezzo sulla stessa tratta: "+ resultCountPT);
     }
 
 
