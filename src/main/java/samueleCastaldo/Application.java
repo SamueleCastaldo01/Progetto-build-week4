@@ -443,9 +443,28 @@ public class Application {
     }
 
     private static void addViaggio(Scanner scanner, EntityManager em) {
+        StatusDao statusDao = new StatusDao(em);
+        ViaggioDAO viaggioDAO = new ViaggioDAO(em);
         System.out.println("Inserisci il tempo effettivo");
+        int tempo_Effettivo = Integer.parseInt(scanner.nextLine());
         System.out.println("Data di partenza");
-        System.out.println("In servizio");
+        System.out.print("Inserisci l'anno: ");
+        int anno = Integer.parseInt(scanner.nextLine());
+        System.out.print("Inserisci il mese: ");
+        int mese = Integer.parseInt(scanner.nextLine());
+        System.out.print("Inserisci il giorno: ");
+        int giorno = Integer.parseInt(scanner.nextLine());
+        System.out.print("Inserisci l'ora: ");
+        int ora = Integer.parseInt(scanner.nextLine());
+        System.out.print("Inserisci minuti: ");
+        int minuti = Integer.parseInt(scanner.nextLine());
+        LocalDateTime data_di_partenza = LocalDateTime.of(anno,mese,giorno,ora,minuti);
+        statusDao.listaInServizioAttuali();
+        System.out.print("Inserisci l'id del viaggio: ");
+        long id_InServizio = Long.parseLong(scanner.nextLine());
+        InServizio servizio = statusDao.findInServizioById(id_InServizio);
+        Viaggio viag1 = new Viaggio(tempo_Effettivo,data_di_partenza,servizio);
+        viaggioDAO.save(viag1);
     }
 
     private static void compraBiglietto(Scanner scanner, EntityManager em) {
