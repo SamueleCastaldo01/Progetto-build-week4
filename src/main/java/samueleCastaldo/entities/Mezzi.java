@@ -9,7 +9,7 @@ public abstract class Mezzi {
     protected long id;
     @Column(nullable = false)
     protected int capienza;
-    @Column(name = "codice_mezzo", nullable = false, unique = true)
+    @Column(name = "codice_mezzo", nullable = false)
     protected String codiceMezzo;
 
     public Mezzi() {}

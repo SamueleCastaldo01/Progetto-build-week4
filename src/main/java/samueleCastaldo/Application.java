@@ -16,29 +16,44 @@ import java.util.List;
 public class Application {
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("buildWeek4");
+    EntityManager em = emf.createEntityManager();
+    private static boolean exitProgram = false;
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("buildWeek4");
         EntityManager em = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
-        boolean accessGranted = false;
 
-        while (!accessGranted) {
+        while (!exitProgram) {
+            boolean accessGranted = false;
+
             System.out.println("Benvenuto nel sistema di gestione trasporti!");
-            System.out.print("Sei un amministratore o un utente comune? (admin/utente): ");
-            String userType = scanner.nextLine();
+            System.out.print("Vuoi popolare le Tabelle? (s/n): ");
 
-            if (userType.equalsIgnoreCase("admin")) {
-                accessGranted = adminAccess(scanner);
-                if (accessGranted) {
-                    showAdminMenu(scanner, em);
+            if (scanner.next().equalsIgnoreCase("s")) {
+                popolatabelle(em);
+            }
+
+            while (!accessGranted && !exitProgram) {
+                scanner.nextLine();
+                System.out.print("Sei un amministratore o un utente comune? (admin/utente/exit): ");
+                String userType = scanner.nextLine();
+
+                if (userType.equalsIgnoreCase("admin")) {
+                    accessGranted = adminAccess(scanner);
+                    if (accessGranted) {
+                        showAdminMenu(scanner, em);
+                    } else {
+                        System.out.println("Accesso amministratore negato. Riprova.");
+                    }
+                } else if (userType.equalsIgnoreCase("utente")) {
+                    showUserMenu(scanner, em);
+                } else if (userType.equalsIgnoreCase("exit")) {
+                    exitProgram = true;
+                    System.out.println("Chiusura del programma in corso...");
                 } else {
-                    System.out.println("Accesso amministratore negato. Riprova.");
+                    System.out.println("Scelta non valida. Riprova.");
                 }
-            } else if (userType.equalsIgnoreCase("utente")) {
-                showUserMenu(scanner, em);
-            } else {
-                System.out.println("Scelta non valida. Riprova.");
             }
         }
 
@@ -48,7 +63,7 @@ public class Application {
     }
 
     private static boolean adminAccess(Scanner scanner) {
-        String adminPassword = "calamaro87";
+        String adminPassword = "123";
         int attempts = 0;
 
         while (attempts < 3) {
@@ -56,7 +71,7 @@ public class Application {
             String inputPassword = scanner.nextLine();
 
             if (inputPassword.equals(adminPassword)) {
-                return true; // Accesso riuscito
+                return true;
             } else {
                 attempts++;
                 System.out.println("Password errata. Hai " + (3 - attempts) + " tentativi rimanenti.");
@@ -66,20 +81,25 @@ public class Application {
         return false;
     }
 
-
-    // menu
+    //  Amministratore
     private static void showAdminMenu(Scanner scanner, EntityManager em) {
-        int choice;
+        int choice = -1;
 
         do {
             System.out.println("Menu Amministratore:");
             System.out.println("1. Aggiungi un nuovo mezzo");
             System.out.println("2. Gestisci biglietti o abbonamenti");
             System.out.println("3. Calcola tempo medio di percorrenza");
-            System.out.println("0. Esci");
+            System.out.println("0. Torna alla selezione utente");
+            System.out.println("9. Esci dal programma");
             System.out.print("Scegli un'opzione: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Errore: hai inserito un valore non valido. Per favore, inserisci un numero.");
+                continue;
+            }
 
             switch (choice) {
                 case 1:
@@ -88,28 +108,41 @@ public class Application {
                 case 2:
                     manageTicketsAndSubscriptions(scanner, em);
                     break;
-                /*case 3:
-                    calculateAverageTravelTime(scanner, em);
-                    break;*/
-                case 0:
-                    System.out.println("Uscita dal sistema.");
+                case 3:
+                    // calculateAverageTravelTime(scanner, em); // Funzionalità da implementare
                     break;
+                case 0:
+                    return;
+                case 9:
+                    exitProgram = true;
+                    System.out.println("Chiusura del programma in corso...");
+                    return;
                 default:
                     System.out.println("Opzione non valida. Riprova.");
             }
-        } while (choice != 0);
+        } while (choice != 0 && !exitProgram);
     }
+
+    // biglietti e abbonamenti
     private static void manageTicketsAndSubscriptions(Scanner scanner, EntityManager em) {
         boolean running = true;
 
-        while (running) {
+        while (running && !exitProgram) {
             System.out.println("Gestisci Biglietti e Abbonamenti:");
             System.out.println("1. Visualizza informazioni sui biglietti");
             System.out.println("2. Visualizza informazioni sugli abbonamenti");
             System.out.println("3. Verifica validità abbonamento");
-            System.out.println("4. Torna al menu principale");
+            System.out.println("0. Torna al menu amministratore");
+            System.out.println("9. Esci dal programma");
 
-            int scelta = Integer.parseInt(scanner.nextLine());
+            int scelta = -1;
+
+            try {
+                scelta = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Errore: hai inserito un valore non valido. Inserisci un numero tra 0 e 9.");
+                continue;
+            }
 
             switch (scelta) {
                 case 1:
@@ -121,14 +154,60 @@ public class Application {
                 case 3:
                     verifySubscriptionValidity(scanner, em);
                     break;
-                case 4:
-                    running = false;
-                    break;
+                case 0:
+                    return;
+                case 9:
+                    exitProgram = true;
+                    System.out.println("Chiusura del programma in corso...");
+                    return;
                 default:
                     System.out.println("Scelta non valida. Riprova.");
             }
         }
     }
+
+
+    private static void showUserMenu(Scanner scanner, EntityManager em) {
+        int choice = -1;
+        boolean exitMenu = false;
+
+        do {
+            System.out.println("Menu Utente Comune:");
+            System.out.println("1. Acquista un biglietto per viaggiare");
+            System.out.println("2. Acquista un abbonamento");
+            System.out.println("0. Torna alla selezione utente");
+            System.out.println("9. Esci dal programma");
+            System.out.print("Scegli un'opzione: ");
+
+            String input = scanner.nextLine();
+
+            try {
+                choice = Integer.parseInt(input.trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Errore: hai inserito un valore non valido. Per favore, inserisci un numero.");
+                continue;
+            }
+
+            switch (choice) {
+                case 1:
+                    buyTicket(scanner, em);
+                    break;
+                case 2:
+                    buySubscription(scanner, em);
+                    break;
+                case 0:
+                    exitMenu = true;
+                    break;
+                case 9:
+                    System.out.println("Chiusura del programma in corso...");
+                    System.exit(0);
+                default:
+                    System.out.println("Opzione non valida. Riprova.");
+            }
+        } while (!exitMenu);
+    }
+
+
 
     private static void showTicketInfo(Scanner scanner, EntityManager em) {
         // AldoRe salvami te
@@ -148,33 +227,7 @@ public class Application {
         // AldoRe salvami te
         System.out.println("Verifica della validità dell'abbonamento non implementata.");
     }
-    private static void showUserMenu(Scanner scanner, EntityManager em) {
-        int choice;
 
-        do {
-            System.out.println("Menu Utente Comune:");
-            System.out.println("1. Acquista un biglietto per viaggiare con la nostra compagnia su tram ed autobus su qualsiasi linea");
-            System.out.println("2. Acquista un abbonamento");
-            System.out.println("0. Esci");
-            System.out.print("Scegli un'opzione: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    buyTicket(scanner, em);
-                    break;
-                case 2:
-                    buySubscription(scanner, em);
-                    break;
-                case 0:
-                    System.out.println("Uscita dal sistema.");
-                    break;
-                default:
-                    System.out.println("Opzione non valida. Riprova.");
-            }
-        } while (choice != 0);
-    }
     private static void addMezzo(Scanner scanner, EntityManager em) {
         System.out.print("Inserisci la capienza del mezzo: ");
         int capienza = scanner.nextInt();
@@ -194,9 +247,8 @@ public class Application {
         }
 
         // Persisto il nuovo mezzo nel database
-        em.getTransaction().begin();
-        em.persist(nuovoMezzo);
-        em.getTransaction().commit();
+        MezziDAO mezziDAO = new MezziDAO(em);
+        mezziDAO.save(nuovoMezzo);
 
         System.out.println("Nuovo mezzo aggiunto con successo!");
     }
@@ -271,13 +323,8 @@ public class Application {
     }
 
 
+    public static void popolatabelle (EntityManager em) {
 
-
-}
-
-
-
-       /* Mezzi nuovoMezzo = new Autobus(capienza, codiceMezzo);
         MezziDAO mezziDAO = new MezziDAO(em);
 
         TesseraDao tessDao = new TesseraDao(em);
@@ -360,7 +407,7 @@ public class Application {
         Viaggio viaggio10 = new Viaggio(120, LocalDateTime.of(2014, 10, 15, 15, 25), stat6 );
         Viaggio viaggio11 = new Viaggio(120, LocalDateTime.of(2023, 10, 15, 15, 17), stat2 );
 
-    /*
+
         utenteDao.save(u1);
         utenteDao.save(u2);
         utenteDao.save(u3);
@@ -430,7 +477,14 @@ public class Application {
         viaggioDAO.save(viaggio9);
         viaggioDAO.save(viaggio10);
         viaggioDAO.save(viaggio11);
-     */
+
+    }
+
+}
+
+
+
+
 
 
 
