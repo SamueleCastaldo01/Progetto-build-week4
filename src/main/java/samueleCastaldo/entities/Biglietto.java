@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class Biglietto extends Pass {
 //    @Column (name = "id_vidimato")
 //    private long idVidimato;
+    private boolean convalida;
 
 
     public Biglietto() {
@@ -15,13 +16,19 @@ public class Biglietto extends Pass {
 
     public Biglietto(LocalDate dataEmissione, EmissioneBiglietti emissioneBiglietti) {
         super(dataEmissione, emissioneBiglietti);
+        this.convalida = false;
+    }
 
+    public void setConvalidaTrue() {
+        this.convalida = true;
     }
 
     @Override
     public String toString() {
         return "Biglietto{" +
-                "id=" + id +
+                ", id=" + id +
+                ", convalida=" + convalida +
+                ", emissioneBiglietti=" + emissioneBiglietti +
                 ", dataEmissione=" + dataEmissione +
                 '}';
     }

@@ -25,6 +25,7 @@ public class Vidimato {
         this.biglietto = biglietto;
         this.data_convalida = data_convalida;
         this.servizio = servizio;
+        this.biglietto.setConvalidaTrue();
     }
 
     public long getId() {
