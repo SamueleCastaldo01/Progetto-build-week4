@@ -8,7 +8,7 @@ import javax.swing.text.html.parser.Entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class PopolareTabbele {
+public class PopolareTabelle {
     private MezziDAO mezziDAO ;
     private TesseraDao tessDao;
     private UtenteDao utenteDao ;
@@ -19,7 +19,7 @@ public class PopolareTabbele {
     private TrattaDAO tratDAO;
     private  ViaggioDAO viaggioDAO;
 
-    public PopolareTabbele(EmBigliettiDao emBigliettiDao, MezziDAO mezziDAO, PassDao passDao, StatusDao statDao, TesseraDao tessDao, TrattaDAO tratDAO, UtenteDao utenteDao, ViaggioDAO viaggioDAO, VidimatoDao vidDao) {
+    public PopolareTabelle(EmBigliettiDao emBigliettiDao, MezziDAO mezziDAO, PassDao passDao, StatusDao statDao, TesseraDao tessDao, TrattaDAO tratDAO, UtenteDao utenteDao, ViaggioDAO viaggioDAO, VidimatoDao vidDao) {
         this.emBigliettiDao = emBigliettiDao;
         this.mezziDAO = mezziDAO;
         this.passDao = passDao;

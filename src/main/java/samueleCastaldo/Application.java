@@ -39,7 +39,7 @@ public class Application {
         System.out.print("Vuoi popolare le Tabelle? (s/n): ");
 
         if (scanner.next().equalsIgnoreCase("s")) {
-            PopolareTabbele popTabelle = new PopolareTabbele(emBigliettiDao, mezziDAO, passDao, statDao, tessDao, tratDAO, utenteDao, viaggioDAO, vidDao);
+            PopolareTabelle popTabelle = new PopolareTabelle(emBigliettiDao, mezziDAO, passDao, statDao, tessDao, tratDAO, utenteDao, viaggioDAO, vidDao);
             popTabelle.addTabelle();
         }
 
@@ -101,10 +101,19 @@ public class Application {
             System.out.println();
             System.out.println("Menu Amministratore:");
             System.out.println("1. Aggiungi un nuovo mezzo");
-            System.out.println("2. Gestisci biglietti o abbonamenti");
-            System.out.println("3. Calcola tempo medio di percorrenza");
+            System.out.println("2. Aggiungi tratta");
+            System.out.println("3. Crea emissione Biglietto");
+            System.out.println("4. Crea Viaggio");
+            System.out.println("5. Controllo numero vendite biglietti");
+            System.out.println("6. Storico mezzo servizio manutenzione by mezzo");
+            System.out.println("7. Validazione match abbonamento utente");
+            System.out.println("8. Biglietti vidimati tramite periodo di tempo");
+            System.out.println("9. Calcola tempo medio di percorrenza");
+            System.out.println("10. Contatore viaggio mezzo (by id mezzo)");
+            System.out.println("11 Controllo vendite numero biglietti per emissione biglietti");
+
             System.out.println("0. Torna alla selezione utente");
-            System.out.println("9. Esci dal programma");
+            System.out.println("12. Esci dal programma");
             System.out.print("Scegli un'opzione: ");
 
             try {
@@ -188,7 +197,11 @@ public class Application {
             System.out.println();
             System.out.println("Menu Utente Comune:");
             System.out.println("1. Acquista un biglietto per viaggiare");
-            System.out.println("2. Acquista un abbonamento");
+            System.out.println("2. Acquista un abbonamento (fornito di tessera)");
+            System.out.println("3. Visualizzazione abbonamenti selezionabili");
+            System.out.println("4. Visualizzazione dettagli tessera");
+            System.out.println("5. Vidima biglietto");
+
             System.out.println("0. Torna alla selezione utente");
             System.out.println("9. Esci dal programma");
             System.out.print("Scegli un'opzione: ");
