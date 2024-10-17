@@ -113,7 +113,7 @@ public class Application {
             System.out.println("10. Controllo vendite numero biglietti per emissione biglietti");
 
             System.out.println("0. Torna alla selezione utente");
-            System.out.println("12. Esci dal programma");
+            System.out.println("11. Esci dal programma");
             System.out.print("Scegli un'opzione: ");
 
             try {
@@ -157,7 +157,7 @@ public class Application {
 
                 case 0:
                     return;
-                case 12:
+                case 11:
                     exitProgram = true;
                     System.out.println("Chiusura del programma in corso...");
                     return;
@@ -416,9 +416,18 @@ public class Application {
         System.out.println("Il conteggio dei viaggi del mezzo sulla stessa tratta: "+ resultCountPT);
     }
 
+    private static void controlloBigliettiPerEmissioneBIglietti (Scanner scanner,EntityManager em) {
+        ViaggioDAO viaggioDAO = new ViaggioDAO(em);
+        MezziDAO mezziDAO = new MezziDAO(em);
+        //lista mezzi
+        mezziDAO.listaMezzi();
+        System.out.print("Seleziona l'id del mezzo: ");
+        long idMezzo = Long.parseLong(scanner.nextLine());
+        long resultCountPT = viaggioDAO.countMezzoPercorreTratta(idMezzo);
+        System.out.println("Il conteggio dei viaggi del mezzo sulla stessa tratta: "+ resultCountPT);
+    }
 
     private static void checkVenditeBiglietto(Scanner scanner, EntityManager em) {
-
         PassDao passDao = new PassDao(em);
 
         LocalDate dataInizio = LocalDate.of(2002, 3, 3);
