@@ -104,14 +104,13 @@ public class Application {
             System.out.println("1. Aggiungi un nuovo mezzo");
             System.out.println("2. Aggiungi tratta");
             System.out.println("3. Crea emissione Biglietto");
-            System.out.println("4. Crea Viaggio");
-            System.out.println("5. Controllo numero vendite biglietti");
-            System.out.println("6. Storico mezzo servizio manutenzione by mezzo");
-            System.out.println("7. Validazione match abbonamento utente");
-            System.out.println("8. Biglietti vidimati tramite periodo di tempo");
-            System.out.println("9. Calcola tempo medio di percorrenza");
-            System.out.println("10. Contatore viaggio mezzo (by id mezzo)");
-            System.out.println("11 Controllo vendite numero biglietti per emissione biglietti");
+            System.out.println("4. Crea Viaggio");;
+            System.out.println("5. Storico mezzo servizio manutenzione by mezzo");
+            System.out.println("6. Validazione match abbonamento utente");
+            System.out.println("7. Biglietti vidimati tramite periodo di tempo");
+            System.out.println("8. Calcola tempo medio di percorrenza");
+            System.out.println("9. Contatore viaggio mezzo (by id mezzo)");
+            System.out.println("10. Controllo vendite numero biglietti per emissione biglietti");
 
             System.out.println("0. Torna alla selezione utente");
             System.out.println("12. Esci dal programma");
@@ -128,12 +127,25 @@ public class Application {
                 case 1:
                     addMezzo(scanner, em);
                     break;
+
                 case 2:
-                    manageTicketsAndSubscriptions(scanner, em);
+                    addTratta(scanner, em);
                     break;
+
                 case 3:
-                    // calculateAverageTravelTime(scanner, em); // Funzionalità da implementare
+                    addEmBiglietto(scanner, em);
                     break;
+
+                case 4:
+                    addViaggio(scanner, em);
+                    break;
+
+                case 10:
+                    checkVenditeBiglietto(scanner, em);
+                    break;
+
+                case 6:
+
                 case 0:
                     return;
                 case 9:
@@ -199,12 +211,12 @@ public class Application {
         indiceUtenteSelezionato = scanner.nextLong();
         try {
             Utente loginUtente = utenteDao.LoginById(indiceUtenteSelezionato);
-        }catch (NotFoundException ex){
+        } catch (NotFoundException ex) {
             exitMenu = true;
             System.out.println(ex.getMessage());
         }
 
-        while(!exitMenu) {
+        while (!exitMenu) {
             scanner.nextLine();
             System.out.println();
             System.out.println("Menu Utente:");
@@ -252,9 +264,9 @@ public class Application {
                 default:
                     System.out.println("Opzione non valida. Riprova.");
             }
-        };
+        }
+        ;
     }
-
 
 
     private static void showTicketInfo(Scanner scanner, EntityManager em) {
@@ -301,6 +313,61 @@ public class Application {
         System.out.println("Nuovo mezzo aggiunto con successo!");
     }
 
+    private static void addTratta(Scanner scanner, EntityManager em) {
+        System.out.print("Inserisci la zona di partenza: ");
+        String zonaPartenza = scanner.nextLine();
+
+        System.out.print("Inserisci zona arrivo: ");
+        String zonaArrivo = scanner.nextLine();
+
+        System.out.print("Inserisci il tempo previsto (in minuti): ");
+        int tempoPrevisto = Integer.parseInt(scanner.nextLine());
+
+        Tratte userTratta = new Tratte(zonaPartenza, zonaArrivo, tempoPrevisto);
+        TrattaDAO trattaDAO = new TrattaDAO(em);
+        trattaDAO.save(userTratta);
+    }
+
+    private static void addEmBiglietto(Scanner scanner, EntityManager em) {
+        System.out.println("1.Venditore");
+        System.out.println("2.Distributore");
+        int scelta = Integer.parseInt(scanner.nextLine());
+        EmissioneBiglietti userInput;
+
+        EmBigliettiDao emBiglDao = new EmBigliettiDao(em);
+
+        if (scelta == 1) {
+            userInput = new Rivenditore();
+            emBiglDao.save(userInput);
+        } else if (scelta == 2) {
+            userInput = new Distributore(true);
+            emBiglDao.save(userInput);
+
+        } else System.out.println("Scelta non valida");
+
+    }
+
+    private static void addViaggio(Scanner scanner, EntityManager em) {
+        System.out.println("Inserisci il tempo effettivo");
+        System.out.println("Data di partenza");
+        System.out.println("In servizio");
+    }
+
+    private static void checkVenditeBiglietto(Scanner scanner, EntityManager em) {
+
+        PassDao passDao = new PassDao(em);
+
+        LocalDate dataInizio = LocalDate.of(2002, 3, 3);
+
+        LocalDate dataFine = LocalDate.of(2025, 3, 3);
+        List<Object[]> testQuery = passDao.numeroPassPerPeriodoEPuntoEmissione(dataInizio, dataFine);
+        for (Object[] result : testQuery) {
+            EmissioneBiglietti emissioneBiglietti = (EmissioneBiglietti) result[0];
+            Long passCount = (Long) result[1];
+
+            System.out.println("Punto emissione: " + emissioneBiglietti + ", Numero di biglietti e abbonamenti: " + passCount);
+        }
+    }
 
     private static void compraBiglietto(Scanner scanner, EntityManager em) {
         //deve comparire prima la lista dei distributori
@@ -320,7 +387,7 @@ public class Application {
         System.out.println("Biglietto acquistato con successo!");
     }
 
-    private static void visualizzaAbbonamenti (Scanner scanner, EntityManager em, long idUtente) {
+    private static void visualizzaAbbonamenti(Scanner scanner, EntityManager em, long idUtente) {
         //deve comparire prima la lista dei distributori
         PassDao passDao = new PassDao(em);
         //qui compare la lista
@@ -328,7 +395,7 @@ public class Application {
         //selezione distributore
         System.out.print("Seleziona Abbonamento tramite id: ");
         long idSelezionato = scanner.nextLong();
-            passDao.dettagliAbbonamento(idSelezionato);
+        passDao.dettagliAbbonamento(idSelezionato);
     }
 
     private static void dettagliTessera(Scanner scanner, EntityManager em, long idUtente) {
@@ -417,18 +484,12 @@ public class Application {
 }
 
 
+//prima query test
+//boolean checkabb1 = passDao.checkAbbByUtente(52, 1);
+// System.out.println(checkabb1);
 
 
-
-
-
-
-        //prima query test
-        //boolean checkabb1 = passDao.checkAbbByUtente(52, 1);
-        // System.out.println(checkabb1);
-
-
-        //Secondo query test, per raggruppamento
+//Secondo query test, per raggruppamento
        /* System.out.println("\n-----------------------------");
         LocalDate dataInizio = LocalDate.of(2002, 3, 3);
         LocalDate dataFine = LocalDate.of(2025, 3, 3);
