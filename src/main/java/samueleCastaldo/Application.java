@@ -229,7 +229,7 @@ public class Application {
 
             switch (choice) {
                 case 1:
-                    buyTicket(scanner, em);
+                    compraBiglietto(scanner, em);
                     break;
                 case 2:
                     buySubscription(scanner, em);
@@ -294,19 +294,25 @@ public class Application {
 
 
 
-    private static void buyTicket(Scanner scanner, EntityManager em) {
+    private static void compraBiglietto(Scanner scanner, EntityManager em) {
+        //deve comparire prima la lista dei distributori
+        EmBigliettiDao embiDao = new EmBigliettiDao(em);
+        PassDao passDao = new PassDao(em);
+        //qui compare la lista
+        embiDao.listaDistri();
+        //selezione distributore
+        System.out.print("Seleziona distributore tramite id: ");
+        long idSelezionato = scanner.nextLong();
+        EmissioneBiglietti disSele = embiDao.SelezionaDistributoreById(idSelezionato);
 
-        LocalDate dataEmissione = LocalDate.now();
-
-
-        Biglietto nuovoBiglietto = new Biglietto(dataEmissione, null);
-
-        em.getTransaction().begin();
-        em.persist(nuovoBiglietto);
-        em.getTransaction().commit();
+        //Creazione biglietto
+        Biglietto nuovoBiglietto = new Biglietto(LocalDate.now(), disSele);
+        passDao.save(nuovoBiglietto);
 
         System.out.println("Biglietto acquistato con successo!");
     }
+
+
     private static void buySubscription(Scanner scanner, EntityManager em) {
 
         LocalDate dataEmissione = LocalDate.now();
