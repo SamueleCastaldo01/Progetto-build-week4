@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import samueleCastaldo.dao.*;
 import samueleCastaldo.entities.*;
+import samueleCastaldo.exceptions.NotFoundException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -59,7 +60,7 @@ public class Application {
                         System.out.println("Accesso amministratore negato. Riprova.");
                     }
                 } else if (userType.equalsIgnoreCase("utente")) {
-                    showUserMenu(scanner, em);
+                    showUserMenu(scanner, em, utenteDao);
                 } else if (userType.equalsIgnoreCase("exit")) {
                     exitProgram = true;
                     System.out.println("Chiusura del programma in corso...");
@@ -189,11 +190,23 @@ public class Application {
     }
 
 
-    private static void showUserMenu(Scanner scanner, EntityManager em) {
+    private static void showUserMenu(Scanner scanner, EntityManager em, UtenteDao utenteDao) {
         int choice = -1;
         boolean exitMenu = false;
+        long indiceUtenteSelezionato;
+        utenteDao.listaUtenti();
+        System.out.print("Seleziona l'indice utente per loggarti: ");
+        indiceUtenteSelezionato = scanner.nextLong();
+        try {
+            Utente loginUtente = utenteDao.LoginById(indiceUtenteSelezionato);
+        }catch (NotFoundException ex){
+            exitMenu = true;
+            System.out.println(ex.getMessage());
 
-        do {
+        }
+
+        while(!exitMenu) {
+            scanner.nextLine();
             System.out.println();
             System.out.println("Menu Utente Comune:");
             System.out.println("1. Acquista un biglietto per viaggiare");
@@ -231,7 +244,7 @@ public class Application {
                 default:
                     System.out.println("Opzione non valida. Riprova.");
             }
-        } while (!exitMenu);
+        };
     }
 
 
