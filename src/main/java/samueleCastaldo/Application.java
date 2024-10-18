@@ -33,20 +33,31 @@ public class Application {
         ViaggioDAO viaggioDAO = new ViaggioDAO(em);
         Scanner scanner = new Scanner(System.in);
 
-
+        //Ciclo While per gestire la creazione delle tabelle
         System.out.println("Benvenuto nel sistema di gestione trasporti!");
-        System.out.print("Vuoi popolare le Tabelle? (s/n): ");
+        String scelta;
+        boolean flag = true;
+        do{
+            System.out.print("Vuoi popolare le Tabelle? (s/n): ");
+            scelta = scanner.nextLine();
+            if (scelta.equalsIgnoreCase("s")) {
+                PopolareTabelle popTabelle = new PopolareTabelle(emBigliettiDao, mezziDAO, passDao, statDao, tessDao, tratDAO, utenteDao, viaggioDAO, vidDao);
+                popTabelle.addTabelle();
+                flag=false;
+            }
+            if (!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")){
+                System.out.println("Input non valido");
+            }
+            if (scelta.equalsIgnoreCase("n")){
+                flag=false;
+            }
+        } while (flag);
 
-        if (scanner.next().equalsIgnoreCase("s")) {
-            PopolareTabelle popTabelle = new PopolareTabelle(emBigliettiDao, mezziDAO, passDao, statDao, tessDao, tratDAO, utenteDao, viaggioDAO, vidDao);
-            popTabelle.addTabelle();
-        }
-
+        //While Generico che racchiude tutti li Switch Case con i loro metodi
         while (!exitProgram) {
             boolean accessGranted = false;
 
             while (!accessGranted && !exitProgram) {
-                scanner.nextLine();
                 System.out.print("Sei un amministratore o un utente comune? (admin/utente/exit): ");
                 String userType = scanner.nextLine();
 
@@ -141,13 +152,13 @@ public class Application {
                     validazioneUtenteAbb(scanner, em);
                     break;
                 case 7:
-                    countBigliettiVidimatiByPeriod(scanner,em);
+                    countBigliettiVidimatiByPeriod(scanner, em);
                     break;
                 case 8:
-                    tempoMedioDiPercorrezaMezzo(scanner,em);
+                    tempoMedioDiPercorrezaMezzo(scanner, em);
                     break;
                 case 9:
-                    countViaggioByMezzo(scanner,em);
+                    countViaggioByMezzo(scanner, em);
                     break;
                 case 10:
                     checkVenditeBiglietto(scanner, em);
@@ -296,8 +307,17 @@ public class Application {
     }
 
     private static void addMezzo(Scanner scanner, EntityManager em) {
-        System.out.print("Inserisci la capienza del mezzo: ");
-        int capienza = scanner.nextInt();
+
+        boolean flag = true;
+        int capienza;
+        System.out.print("Inserisci la capienza del mezzo (tra 20 e 40): ");
+        do {
+            capienza = scanner.nextInt();
+            if(capienza>=20 && capienza<=40){
+                flag = false;
+            } else System.out.print("Deve essere un numero tra 20 e 40. Riprove: ");
+        }while (flag);
+
         scanner.nextLine();
 
         System.out.print("Inserisci il codice del mezzo (es. 'c 18'): ");
@@ -387,12 +407,12 @@ public class Application {
         } else System.out.println("L'abbonamento non passsa il controllo");
     }
 
-    private static void countBigliettiVidimatiByPeriod (Scanner scanner,EntityManager em) {
+    private static void countBigliettiVidimatiByPeriod(Scanner scanner, EntityManager em) {
         VidimatoDao vidDao = new VidimatoDao(em);
         vidDao.getBigliettiVidimatiByPeriodo(LocalDate.of(2002, 10, 15), LocalDate.of(2025, 10, 10));
     }
 
-    private static void tempoMedioDiPercorrezaMezzo (Scanner scanner,EntityManager em) {
+    private static void tempoMedioDiPercorrezaMezzo(Scanner scanner, EntityManager em) {
         ViaggioDAO viaggioDAO = new ViaggioDAO(em);
         MezziDAO mezziDAO = new MezziDAO(em);
         //lista mezzi
@@ -400,10 +420,10 @@ public class Application {
         System.out.print("Seleziona l'id del mezzo: ");
         long idMezzo = Long.parseLong(scanner.nextLine());
         double resultMediaTempoEffettivo = viaggioDAO.mediaTempoEffettivoByMezzo(idMezzo);
-        System.out.println("La media tratta del mezzo è: "+ resultMediaTempoEffettivo);
+        System.out.println("La media tratta del mezzo è: " + resultMediaTempoEffettivo);
     }
 
-    private static void countViaggioByMezzo (Scanner scanner,EntityManager em) {
+    private static void countViaggioByMezzo(Scanner scanner, EntityManager em) {
         ViaggioDAO viaggioDAO = new ViaggioDAO(em);
         MezziDAO mezziDAO = new MezziDAO(em);
         //lista mezzi
@@ -411,10 +431,10 @@ public class Application {
         System.out.print("Seleziona l'id del mezzo: ");
         long idMezzo = Long.parseLong(scanner.nextLine());
         long resultCountPT = viaggioDAO.countMezzoPercorreTratta(idMezzo);
-        System.out.println("Il conteggio dei viaggi del mezzo sulla stessa tratta: "+ resultCountPT);
+        System.out.println("Il conteggio dei viaggi del mezzo sulla stessa tratta: " + resultCountPT);
     }
 
-    private static void controlloBigliettiPerEmissioneBIglietti (Scanner scanner,EntityManager em) {
+    private static void controlloBigliettiPerEmissioneBIglietti(Scanner scanner, EntityManager em) {
         ViaggioDAO viaggioDAO = new ViaggioDAO(em);
         MezziDAO mezziDAO = new MezziDAO(em);
         //lista mezzi
@@ -422,7 +442,7 @@ public class Application {
         System.out.print("Seleziona l'id del mezzo: ");
         long idMezzo = Long.parseLong(scanner.nextLine());
         long resultCountPT = viaggioDAO.countMezzoPercorreTratta(idMezzo);
-        System.out.println("Il conteggio dei viaggi del mezzo sulla stessa tratta: "+ resultCountPT);
+        System.out.println("Il conteggio dei viaggi del mezzo sulla stessa tratta: " + resultCountPT);
     }
 
     private static void checkVenditeBiglietto(Scanner scanner, EntityManager em) {
@@ -456,12 +476,12 @@ public class Application {
         int ora = Integer.parseInt(scanner.nextLine());
         System.out.print("Inserisci minuti: ");
         int minuti = Integer.parseInt(scanner.nextLine());
-        LocalDateTime data_di_partenza = LocalDateTime.of(anno,mese,giorno,ora,minuti);
+        LocalDateTime data_di_partenza = LocalDateTime.of(anno, mese, giorno, ora, minuti);
         statusDao.listaInServizioAttuali();
         System.out.print("Inserisci l'id del viaggio: ");
         long id_InServizio = Long.parseLong(scanner.nextLine());
         InServizio servizio = statusDao.findInServizioById(id_InServizio);
-        Viaggio viag1 = new Viaggio(tempo_Effettivo,data_di_partenza,servizio);
+        Viaggio viag1 = new Viaggio(tempo_Effettivo, data_di_partenza, servizio);
         viaggioDAO.save(viag1);
     }
 
