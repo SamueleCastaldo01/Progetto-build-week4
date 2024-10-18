@@ -37,19 +37,19 @@ public class Application {
         System.out.println("Benvenuto nel sistema di gestione trasporti!");
         String scelta;
         boolean flag = true;
-        do{
+        do {
             System.out.print("Vuoi popolare le Tabelle? (s/n): ");
             scelta = scanner.nextLine();
             if (scelta.equalsIgnoreCase("s")) {
                 PopolareTabelle popTabelle = new PopolareTabelle(emBigliettiDao, mezziDAO, passDao, statDao, tessDao, tratDAO, utenteDao, viaggioDAO, vidDao);
                 popTabelle.addTabelle();
-                flag=false;
+                flag = false;
             }
-            if (!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")){
+            if (!scelta.equalsIgnoreCase("s") && !scelta.equalsIgnoreCase("n")) {
                 System.out.println("Input non valido");
             }
-            if (scelta.equalsIgnoreCase("n")){
-                flag=false;
+            if (scelta.equalsIgnoreCase("n")) {
+                flag = false;
             }
         } while (flag);
 
@@ -313,10 +313,10 @@ public class Application {
         System.out.print("Inserisci la capienza del mezzo (tra 20 e 40): ");
         do {
             capienza = scanner.nextInt();
-            if(capienza>=20 && capienza<=40){
+            if (capienza >= 20 && capienza <= 40) {
                 flag = false;
             } else System.out.print("Deve essere un numero tra 20 e 40. Riprove: ");
-        }while (flag);
+        } while (flag);
 
         scanner.nextLine();
 
@@ -535,11 +535,19 @@ public class Application {
         long idServizioSelezionato = scanner.nextLong();
 
         //dobbiamo prenderci sia il biglietto che inServizio
-        InServizio inServizio = satDao.findInServizioById(idServizioSelezionato);
-        Biglietto biglietto = passDao.findByIdBiglietto(idBigliettoSelezionato);
+        Biglietto biglietto;
+        InServizio inServizio;
+        try {
+            inServizio = satDao.findInServizioById(idServizioSelezionato);
+            biglietto = passDao.findByIdBiglietto(idBigliettoSelezionato);
+            Vidimato vid1 = new Vidimato(biglietto, LocalDate.now(), inServizio);
+            vidDao.save(vid1);
+        } catch (NotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+
         //facciamo vidimare il biglietto
-        Vidimato vid1 = new Vidimato(biglietto, LocalDate.now(), inServizio);
-        vidDao.save(vid1);
+
     }
 
 
